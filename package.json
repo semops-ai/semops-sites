@@ -1,0 +1,23 @@
+{
+  "name": "semops-sites",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "npm@11.6.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "dev:semops": "npm run dev --workspace=@sites/semops",
+    "ingest": "tsx scripts/ingest-content.ts"
+  },
+  "devDependencies": {
+    "commander": "^12.0.0",
+    "gray-matter": "^4.0.3",
+    "turbo": "^2",
+    "tsx": "^4.0.0"
+  }
+}
