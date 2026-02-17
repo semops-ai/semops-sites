@@ -83,9 +83,11 @@ semops-publisher           semops-sites  ← This repo
 
 ## Documentation
 
-- [CLAUDE.md](CLAUDE.md) - AI agent instructions
-- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) - System architecture
-- [docs/decisions/](docs/decisions/) - Architecture Decision Records
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) - System architecture and ownership
+- [docs/INFRASTRUCTURE.md](docs/INFRASTRUCTURE.md) - Services and deployment
+- [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md) - Design system architecture
+- [docs/CONTENT_TYPES.md](docs/CONTENT_TYPES.md) - Content model and types
+- [docs/STACK-OVERVIEW.md](docs/STACK-OVERVIEW.md) - Full technology stack guide
 
 ## Related Repositories
 
