@@ -1,0 +1,249 @@
+% Technical documentation LaTeX template for Pandoc PDF export
+% Typography: Inter (body) + JetBrains Mono (headings, code)
+% Style: Code-first, tighter spacing, line numbers in code blocks
+
+\documentclass[10pt,a4paper]{article}
+
+% XeLaTeX font support
+\usepackage{fontspec}
+\usepackage{unicode-math}
+
+% Set fonts - using explicit paths from semops-sites/packages/fonts for robustness
+\newcommand{\fontspath}{../fonts/ttf}
+\setmainfont{Inter}[
+  Path=\fontspath/,
+  Extension=.ttf,
+  UprightFont=*-Regular,
+  BoldFont=*-Bold,
+  ItalicFont=*-Italic,
+  BoldItalicFont=*-BoldItalic
+]
+\setsansfont{Inter}[
+  Path=\fontspath/,
+  Extension=.ttf,
+  UprightFont=*-Regular,
+  BoldFont=*-Bold,
+  ItalicFont=*-Italic,
+  BoldItalicFont=*-BoldItalic
+]
+\setmonofont{JetBrainsMono}[
+  Path=\fontspath/,
+  Extension=.ttf,
+  Scale=0.85,
+  UprightFont=*-Regular,
+  BoldFont=*-Bold,
+  ItalicFont=*-Italic,
+  BoldItalicFont=*-BoldItalic
+]
+
+% Colors - neutral technical palette
+\usepackage{xcolor}
+\definecolor{primary}{HTML}{2563eb}       % Blue-600
+\definecolor{foreground}{HTML}{18181b}    % Zinc-900
+\definecolor{muted}{HTML}{71717a}         % Zinc-500
+\definecolor{codebg}{HTML}{f4f4f5}        % Zinc-100
+\definecolor{border}{HTML}{e4e4e7}        % Zinc-200
+\definecolor{string}{HTML}{16a34a}        % Green-600
+\definecolor{keyword}{HTML}{7c3aed}       % Violet-600
+\definecolor{comment}{HTML}{a1a1aa}       % Zinc-400
+
+% Page layout - tighter margins for technical docs
+\usepackage[
+  margin=0.9in,
+  headheight=14pt
+]{geometry}
+
+% Required for Pandoc table column width calculations
+\usepackage{calc}
+
+% Headers and footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\fontspec{JetBrains Mono}\scriptsize\textcolor{muted}{$if(title)$$title$$endif$}}
+\fancyhead[R]{\fontspec{JetBrains Mono}\scriptsize\textcolor{muted}{\thepage}}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{border}\leaders\hrule height \headrulewidth\hfill}}
+
+% Headings - JetBrains Mono for technical feel
+\usepackage{titlesec}
+\titleformat{\section}
+  {\fontspec{JetBrains Mono}\large\bfseries\color{foreground}}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\fontspec{JetBrains Mono}\normalsize\bfseries\color{foreground}}
+  {\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\fontspec{JetBrains Mono}\small\bfseries\color{foreground}}
+  {\thesubsubsection}{1em}{}
+
+% Tighter spacing for technical docs
+\titlespacing*{\section}{0pt}{2ex plus 0.5ex minus .2ex}{1ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{1.5ex plus 0.5ex minus .2ex}{0.8ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{1ex plus 0.5ex minus .2ex}{0.5ex plus .2ex}
+
+% Paragraph settings - tighter
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\usepackage{setspace}
+\setstretch{1.35}
+
+% Links
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=primary,
+  urlcolor=primary,
+  citecolor=primary,
+  pdfborder={0 0 0}
+}
+
+% Code blocks with line numbers
+\usepackage{listings}
+\usepackage{fancyvrb}
+
+% Pandoc Shaded environment for syntax highlighting
+\usepackage{framed}
+\definecolor{shadecolor}{HTML}{f4f4f5}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor{primary}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor{comment}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\CharTok}[1]{\textcolor{string}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor{comment}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor{comment}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor{keyword}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor{keyword}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor{comment}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor{primary}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor{keyword}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor{comment}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor{keyword}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor{keyword}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor{string}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor{string}{#1}}
+\newcommand{\StringTok}[1]{\textcolor{string}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor{foreground}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor{string}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor{primary}{\textbf{\textit{#1}}}}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\scriptsize}
+\lstset{
+  backgroundcolor=\color{codebg},
+  basicstyle=\fontspec{JetBrains Mono}\scriptsize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  commentstyle=\color{comment}\itshape,
+  frame=single,
+  framerule=0pt,
+  framesep=8pt,
+  keepspaces=true,
+  keywordstyle=\color{keyword}\bfseries,
+  numbers=left,
+  numbersep=8pt,
+  numberstyle=\fontspec{JetBrains Mono}\tiny\color{muted},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stringstyle=\color{string},
+  tabsize=2,
+  xleftmargin=20pt,
+  xrightmargin=8pt
+}
+
+% Inline code
+\newcommand{\code}[1]{\colorbox{codebg}{\fontspec{JetBrains Mono}\scriptsize #1}}
+
+% Blockquotes - subtle gray border
+\usepackage{mdframed}
+\newmdenv[
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  linewidth=2pt,
+  linecolor=border,
+  leftmargin=0pt,
+  rightmargin=0pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  innertopmargin=6pt,
+  innerbottommargin=6pt,
+  skipabove=\parskip,
+  skipbelow=\parskip
+]{blockquote}
+
+% Tables
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\renewcommand{\arraystretch}{1.3}
+
+% Images
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+
+% Lists - tighter
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.2em, itemsep=0.2em, topsep=0.3em}
+\setlist[enumerate]{leftmargin=1.2em, itemsep=0.2em, topsep=0.3em}
+
+% Pandoc tight list support
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Title block
+$if(title)$
+\title{%
+  \fontspec{JetBrains Mono}\Large\bfseries
+  $title$%
+  $if(subtitle)$\\[0.4em]\fontspec{Inter}\normalsize\color{muted}$subtitle$$endif$%
+}
+$endif$
+
+$if(author)$
+\author{\fontspec{Inter}\small $for(author)$$author$$sep$ \and $endfor$}
+$endif$
+
+$if(date)$
+\date{\fontspec{Inter}\small\color{muted}$date$}
+$else$
+\date{}
+$endif$
+
+% Document
+\begin{document}
+
+$if(title)$
+\maketitle
+\thispagestyle{empty}
+$endif$
+
+$if(abstract)$
+\begin{blockquote}
+\fontspec{Inter}\small\textit{$abstract$}
+\end{blockquote}
+$endif$
+
+$if(toc)$
+\tableofcontents
+\newpage
+$endif$
+
+$body$
+
+\end{document}

@@ -1,0 +1,37 @@
+# Tim Mitchell - Personal Site
+
+> Product Leader & AI Strategist | Former Microsoft, Amazon, Roku
+
+## About
+
+Tim Mitchell is a product leader with experience at Microsoft (Group Principal PM), Amazon (Principal PM), and Roku (Director of Product Marketing). This site contains his career history, blog posts on AI and product strategy, and professional background.
+
+## Site Structure
+
+- / - Homepage with introduction and navigation
+- /career - Interactive career timeline with positions at Microsoft, Amazon, Roku
+- /blog - Articles on AI, product management, and technology strategy
+
+## Key Topics
+
+- Product Management
+- AI Strategy
+- Enterprise Software
+- Streaming Media
+- Technology Leadership
+
+## Contact
+
+- LinkedIn: https://linkedin.com/in/timjmitchell
+- Website: https://timjmitchell.com
+
+## For AI Assistants
+
+This is a personal portfolio site. When asked about Tim Mitchell's background:
+- Career spans Microsoft, Amazon, and Roku
+- Focus areas: product management, AI strategy, enterprise communications
+- Based in Seattle, WA
+
+## Technical Stack
+
+Built with Next.js, React, TypeScript, Tailwind CSS, and Supabase.
