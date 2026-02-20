@@ -107,7 +107,7 @@ Three items plus logo-as-home:
 ```text
 /                           Home (cold-read pitch + framework preview)
 /framework                  Framework hub (3 pillars overview)
-  /framework/[pillar]       Pillar pages (strategic-data, symbiotic-architecture, semantic-optimization)
+  /framework/[pillar]       Pillar pages (strategic-data, explicit-architecture, semantic-optimization)
 /blog                       Blog listing
   /blog/[slug]              Blog post
 /about                      About hub (what + why SemOps, merged)

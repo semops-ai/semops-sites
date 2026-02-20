@@ -181,7 +181,7 @@ export interface EyebrowProps {
 
 const accentColors: Record<string, string> = {
   accent: 'bg-accent',
-  emphasis: 'bg-emphasis',
+  emphasis: 'bg-muted-foreground',
   primary: 'bg-primary',
   muted: 'bg-muted-foreground',
 };

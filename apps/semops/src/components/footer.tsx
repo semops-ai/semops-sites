@@ -10,14 +10,12 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/" className="inline-block mb-4">
-              <span className="font-semibold text-xl text-foreground">
-                SemOps
+              <span className="text-xl text-foreground" style={{ fontFamily: 'var(--font-monomials)' }}>
+                SemOps.ai
               </span>
             </Link>
             <p className="text-muted-foreground max-w-sm">
-              A framework for Strategic Data, Symbiotic Architecture, and
-              Semantic Optimization. Building better AI products through
-              principled system design.
+              A framework for optimizing business goals through semantic alignment to AI integration.
             </p>
           </div>
 
@@ -91,7 +89,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
-            &copy; {currentYear} SemOps. All rights reserved.
+            &copy; {currentYear} SemOps.ai. All rights reserved.
           </p>
         </div>
       </div>

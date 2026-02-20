@@ -93,6 +93,104 @@ function hello() {
           </div>
         </ComponentSection>
 
+        {/* Typography Test */}
+        <ComponentSection title="Typography Test — Font Comparison">
+          <div className="space-y-10">
+            {/* Logo shootout */}
+            <div>
+              <h3 className="text-sm font-medium mb-4 text-muted-foreground">Logo / Brand Lockup — All Candidates</h3>
+              <div className="space-y-4">
+                {[
+                  { label: 'Matech 700', font: 'var(--font-matech)', weight: 700 },
+                  { label: 'Matech 800', font: 'var(--font-matech)', weight: 800 },
+                  { label: 'Monomials', font: 'var(--font-monomials)', weight: 400 },
+                  { label: 'Classica Motion', font: 'var(--font-classica)', weight: 400 },
+                  { label: 'Classica Italic', font: 'var(--font-classica)', weight: 400, italic: true },
+                  { label: 'FEATURISTIC', font: 'var(--font-featuristic)', weight: 400 },
+                  { label: 'Tracker Clock', font: 'var(--font-tracker)', weight: 400 },
+                  { label: 'JetBrains Mono', font: 'var(--font-mono)', weight: 700 },
+                  { label: 'DM Sans', font: 'var(--font-sans)', weight: 700 },
+                ].map((f) => (
+                  <div key={f.label} className="flex items-baseline gap-4 border-b border-border/30 pb-3">
+                    <span className="text-xs text-muted-foreground w-32 shrink-0">{f.label}</span>
+                    <span
+                      className="text-3xl text-foreground"
+                      style={{ fontFamily: f.font, fontWeight: f.weight, fontStyle: f.italic ? 'italic' : 'normal' }}
+                    >
+                      SemOps.Ai
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Heading scale per font */}
+            <div>
+              <h3 className="text-sm font-medium mb-4 text-muted-foreground">Heading Scale — Each Font</h3>
+              <div className="space-y-6">
+                {[
+                  { label: 'Matech', font: 'var(--font-matech)' },
+                  { label: 'Monomials', font: 'var(--font-monomials)' },
+                  { label: 'Classica Motion', font: 'var(--font-classica)' },
+                  { label: 'FEATURISTIC', font: 'var(--font-featuristic)' },
+                  { label: 'Tracker Clock', font: 'var(--font-tracker)' },
+                ].map((f) => (
+                  <div key={f.label} className="border-b border-border/30 pb-4">
+                    <p className="text-xs text-muted-foreground mb-2">{f.label}</p>
+                    <p className="text-4xl mb-1" style={{ fontFamily: f.font, fontWeight: 700 }}>Semantic Operations</p>
+                    <p className="text-2xl mb-1" style={{ fontFamily: f.font, fontWeight: 600 }}>Strategic Data &middot; Explicit Architecture</p>
+                    <p className="text-lg" style={{ fontFamily: f.font, fontWeight: 400 }}>Building better AI products through principled design</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Tags / Labels */}
+            <div>
+              <h3 className="text-sm font-medium mb-4 text-muted-foreground">Tags &amp; Labels — Each Font</h3>
+              <div className="space-y-4">
+                {[
+                  { label: 'Matech', font: 'var(--font-matech)' },
+                  { label: 'Monomials', font: 'var(--font-monomials)' },
+                  { label: 'Classica Motion', font: 'var(--font-classica)' },
+                  { label: 'FEATURISTIC', font: 'var(--font-featuristic)' },
+                  { label: 'Tracker Clock', font: 'var(--font-tracker)' },
+                ].map((f) => (
+                  <div key={f.label} className="flex items-center gap-4">
+                    <span className="text-xs text-muted-foreground w-32 shrink-0">{f.label}</span>
+                    <div className="flex gap-2">
+                      <span className="tag" style={{ fontFamily: f.font }}>Strategic Data</span>
+                      <span className="tag" style={{ fontFamily: f.font }}>Architecture</span>
+                      <span className="tag" style={{ fontFamily: f.font }}>Optimization</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Body text comparison */}
+            <div>
+              <h3 className="text-sm font-medium mb-4 text-muted-foreground">Body Text — All Fonts</h3>
+              <div className="space-y-4">
+                {[
+                  { label: 'DM Sans (current body)', font: 'var(--font-sans)' },
+                  { label: 'JetBrains Mono (current headings)', font: 'var(--font-mono)' },
+                  { label: 'Matech', font: 'var(--font-matech)' },
+                  { label: 'Monomials', font: 'var(--font-monomials)' },
+                  { label: 'Classica Motion', font: 'var(--font-classica)' },
+                  { label: 'FEATURISTIC', font: 'var(--font-featuristic)' },
+                  { label: 'Tracker Clock', font: 'var(--font-tracker)' },
+                ].map((f) => (
+                  <div key={f.label} className="border-b border-border/30 pb-3">
+                    <p className="text-xs text-muted-foreground mb-1">{f.label}</p>
+                    <p style={{ fontFamily: f.font }}>Most organizations treat their data infrastructure as a technical problem. SemOps reframes it as a semantic one.</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </ComponentSection>
+
         {/* Custom Classes */}
         <ComponentSection title="Custom CSS Classes">
           <div className="space-y-6">
@@ -204,38 +302,132 @@ function hello() {
 
         {/* Colors */}
         <ComponentSection title="Color Palette">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="space-y-2">
-              <div className="h-16 rounded bg-primary" />
-              <p className="text-xs">Primary (Deep Navy)</p>
+          <div className="space-y-6">
+            {/* Surfaces */}
+            <div>
+              <h3 className="text-sm font-medium mb-3 text-muted-foreground">Surfaces</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-background border border-border" />
+                  <p className="text-xs font-medium">background</p>
+                  <p className="text-xs text-muted-foreground">hsl(0 0% 98%)</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-card border border-border" />
+                  <p className="text-xs font-medium">card</p>
+                  <p className="text-xs text-muted-foreground">hsl(40 18% 96%) — warm off-white</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-muted" />
+                  <p className="text-xs font-medium">muted</p>
+                  <p className="text-xs text-muted-foreground">hsl(0 0% 90%)</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-accent" />
+                  <p className="text-xs font-medium">accent</p>
+                  <p className="text-xs text-muted-foreground">hsl(348 100% 56%) — pink-red</p>
+                </div>
+              </div>
             </div>
-            <div className="space-y-2">
-              <div className="h-16 rounded bg-secondary" />
-              <p className="text-xs">Secondary</p>
+
+            {/* Brand colors */}
+            <div>
+              <h3 className="text-sm font-medium mb-3 text-muted-foreground">Brand</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-primary" />
+                  <p className="text-xs font-medium">primary</p>
+                  <p className="text-xs text-muted-foreground">hsl(0 0% 14%) — dark charcoal</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-secondary" />
+                  <p className="text-xs font-medium">secondary</p>
+                  <p className="text-xs text-muted-foreground">hsl(342 100% 52%) — crimson</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-label" />
+                  <p className="text-xs font-medium">label</p>
+                  <p className="text-xs text-muted-foreground">hsl(342 87% 44%) — crimson CTA</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-emphasis" />
+                  <p className="text-xs font-medium">emphasis</p>
+                  <p className="text-xs text-muted-foreground">hsl(342 100% 65%) — neon pink</p>
+                </div>
+              </div>
             </div>
-            <div className="space-y-2">
-              <div className="h-16 rounded bg-accent" />
-              <p className="text-xs">Accent</p>
+
+            {/* Text colors */}
+            <div>
+              <h3 className="text-sm font-medium mb-3 text-muted-foreground">Text</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-foreground" />
+                  <p className="text-xs font-medium">foreground</p>
+                  <p className="text-xs text-muted-foreground">hsl(0 0% 12%)</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded" style={{ backgroundColor: 'hsl(0 0% 45%)' }} />
+                  <p className="text-xs font-medium">muted-foreground</p>
+                  <p className="text-xs text-muted-foreground">hsl(0 0% 45%)</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-primary-foreground border border-border" />
+                  <p className="text-xs font-medium">primary-foreground</p>
+                  <p className="text-xs text-muted-foreground">hsl(0 0% 96%)</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-secondary-foreground" />
+                  <p className="text-xs font-medium">secondary-foreground</p>
+                  <p className="text-xs text-muted-foreground">hsl(0 0% 98%)</p>
+                </div>
+              </div>
             </div>
-            <div className="space-y-2">
-              <div className="h-16 rounded bg-muted" />
-              <p className="text-xs">Muted</p>
+
+            {/* Utility */}
+            <div>
+              <h3 className="text-sm font-medium mb-3 text-muted-foreground">Utility</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-destructive" />
+                  <p className="text-xs font-medium">destructive</p>
+                  <p className="text-xs text-muted-foreground">hsl(0 72% 51%)</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-border" />
+                  <p className="text-xs font-medium">border</p>
+                  <p className="text-xs text-muted-foreground">hsl(0 0% 82%)</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded bg-ring" />
+                  <p className="text-xs font-medium">ring</p>
+                  <p className="text-xs text-muted-foreground">hsl(0 0% 14%)</p>
+                </div>
+                <div className="space-y-1">
+                  <div className="h-16 rounded" style={{ backgroundColor: 'hsl(0 0% 95%)' }} />
+                  <p className="text-xs font-medium">muted-accent</p>
+                  <p className="text-xs text-muted-foreground">hsl(0 0% 95%)</p>
+                </div>
+              </div>
             </div>
-            <div className="space-y-2">
-              <div className="h-16 rounded bg-destructive" />
-              <p className="text-xs">Destructive</p>
-            </div>
-            <div className="space-y-2">
-              <div className="h-16 rounded border bg-card" />
-              <p className="text-xs">Card / Background</p>
-            </div>
-            <div className="space-y-2">
-              <div className="h-16 rounded bg-label" />
-              <p className="text-xs">Label (CTA buttons)</p>
-            </div>
-            <div className="space-y-2">
-              <div className="h-16 rounded bg-emphasis" />
-              <p className="text-xs">Emphasis (Hot pink)</p>
+
+            {/* Foreground on background samples */}
+            <div>
+              <h3 className="text-sm font-medium mb-3 text-muted-foreground">Text on Surface Samples</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="h-16 rounded bg-primary flex items-center justify-center">
+                  <span className="text-primary-foreground font-medium">primary + primary-foreground</span>
+                </div>
+                <div className="h-16 rounded bg-secondary flex items-center justify-center">
+                  <span className="text-secondary-foreground font-medium">secondary + secondary-foreground</span>
+                </div>
+                <div className="h-16 rounded bg-muted flex items-center justify-center">
+                  <span className="text-muted-foreground font-medium">muted + muted-foreground</span>
+                </div>
+                <div className="h-16 rounded bg-card border border-border flex items-center justify-center">
+                  <span className="text-card-foreground font-medium">card + card-foreground</span>
+                </div>
+              </div>
             </div>
           </div>
         </ComponentSection>
@@ -431,7 +623,7 @@ function hello() {
                 </p>
               </ContentCard>
               <ContentCard hover>
-                <h3 className="text-lg font-medium mb-2">Symbiotic Architecture</h3>
+                <h3 className="text-lg font-medium mb-2">Explicit Architecture</h3>
                 <p className="text-sm text-muted-foreground">
                   Encode your strategy into your systems so humans and AI can operate
                   from shared structure.
@@ -472,7 +664,7 @@ function hello() {
                 </p>
               </ContentCard>
               <ContentCard hover>
-                <h3 className="text-lg font-medium mb-2">Symbiotic Architecture</h3>
+                <h3 className="text-lg font-medium mb-2">Explicit Architecture</h3>
                 <p className="text-sm text-muted-foreground">
                   Encode your strategy into your systems so humans and AI can operate
                   from shared structure.

@@ -41,6 +41,7 @@
   --color-muted-accent-foreground: var(--muted-accent-foreground);
   --color-label: var(--label);
   --color-emphasis: var(--emphasis);
+  --color-crimson-foreground: var(--crimson-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -74,8 +75,10 @@
   /* Muted section bg — gray */
   --muted-accent: hsl(0 0% 95%);
   --muted-accent-foreground: hsl(0 0% 12%);
-  /* Crimson label for CTAs — rgb(207, 15, 71) */
-  --label: hsl(342 87% 44%);
+  /* Label — matches secondary */
+  --label: hsl(342 100% 52%);
+  /* Crimson text foreground — deeper crimson for text on light surfaces */
+  --crimson-foreground: hsl(342 80% 32%);
   /* Neon pink emphasis — natural extension of 342° crimson family */
   --emphasis: hsl(342 100% 65%);
   --destructive: hsl(0 72% 51%);
@@ -126,8 +129,10 @@
   /* Muted section — dark gray */
   --muted-accent: hsl(0 0% 11%);
   --muted-accent-foreground: hsl(0 0% 90%);
-  /* Crimson label */
-  --label: hsl(342 90% 50%);
+  /* Label — matches secondary */
+  --label: hsl(342 100% 55%);
+  /* Crimson text foreground — deeper crimson for text on dark surfaces */
+  --crimson-foreground: hsl(342 90% 50%);
   /* Neon pink emphasis */
   --emphasis: hsl(342 100% 70%);
   --destructive: hsl(0 62% 45%);
@@ -189,10 +194,10 @@ p {
   @apply leading-relaxed;
 }
 
-/* Links - foreground with red hover */
+/* Links - crimson text, no underline */
 a:not([class]) {
-  @apply text-foreground underline underline-offset-2 decoration-foreground/30
-         hover:text-secondary hover:decoration-secondary transition-colors;
+  @apply text-crimson-foreground no-underline
+         hover:text-secondary transition-colors;
 }
 
 /* Code styling */
@@ -202,11 +207,14 @@ code:not(pre code) {
 }
 
 pre {
-  @apply font-mono text-[13px] leading-relaxed rounded-lg overflow-x-auto;
+  @apply font-mono text-[13px] leading-relaxed rounded-lg;
   @apply border border-border;
   background: hsl(220 14% 96%);
   padding: 1rem;
   margin: 1.5rem 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: hidden;
 }
 
 pre code {
@@ -424,32 +432,32 @@ blockquote {
   @apply bg-primary/15 text-foreground;
 }
 
+/* Container default padding — prevents content hitting screen edges on mobile.
+   Tailwind utilities (px-4, etc.) on individual elements override this. */
+.container {
+  padding-inline: 0.75rem;
+}
+@media (min-width: 640px) {
+  .container {
+    padding-inline: 1rem;
+  }
+}
+
 /* Component styles */
 @layer components {
-  /* Prose container — outer constraint for article content.
-     Widened to accommodate breakout elements (tables, code, diagrams). */
+  /* Prose container — outer constraint for article content. */
   .prose-container {
-    @apply max-w-[960px] mx-auto;
+    @apply max-w-[800px] mx-auto px-4 sm:px-6;
   }
 
-  /* Prose content — CSS Grid for hybrid reading/breakout widths.
-     Body text stays at reading width; tables, code, diagrams go wider. */
+  /* Prose content — uniform width for all elements. */
   .prose-content {
-    --prose-width: 720px;
-    display: grid;
-    grid-template-columns: 1fr min(var(--prose-width), 100%) 1fr;
+    display: block;
   }
 
-  .prose-content > * {
-    grid-column: 2;
-  }
-
-  .prose-content > pre,
-  .prose-content > figure,
-  .prose-content > .mermaid-container,
-  .prose-content > .table-wrapper,
-  .prose-content > .breakout {
-    grid-column: 1 / -1;
+  /* Auto separator above h2 sections */
+  .prose-content h2 {
+    @apply border-t border-border pt-8 mt-10;
   }
 
   /* Table wrapper — breakout + horizontal scroll on small screens */
@@ -462,14 +470,24 @@ blockquote {
     border-collapse: collapse;
   }
 
-  .table-wrapper th {
-    @apply text-left font-medium px-4 py-2 bg-muted/50 border-b border-border;
-    font-family: var(--font-mono), monospace;
-    font-size: 0.8125rem;
+  .table-wrapper th,
+  .table-wrapper td {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
   }
 
-  .table-wrapper td {
-    @apply px-4 py-2 border-b border-border;
+  .table-wrapper th:last-child,
+  .table-wrapper td:last-child {
+    border-right: none;
+  }
+
+  .table-wrapper th {
+    text-align: left;
+    font-weight: 500;
+    background: color-mix(in srgb, var(--muted) 50%, transparent);
+    font-family: var(--font-mono), monospace;
+    font-size: 0.8125rem;
   }
 
   .table-wrapper tr:last-child td {

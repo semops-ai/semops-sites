@@ -31,7 +31,7 @@ const HUB_ROUTE_CONFIG: Record<string, { route: string }> = {
   "how-i-got-here": { route: "/about/how-i-got-here" },
   framework: { route: "/framework" },
   "strategic-data": { route: "/framework/strategic-data" },
-  "symbiotic-architecture": { route: "/framework/symbiotic-architecture" },
+  "explicit-architecture": { route: "/framework/explicit-architecture" },
   "semantic-optimization": { route: "/framework/semantic-optimization" },
 };
 
@@ -139,6 +139,53 @@ function deriveCategory(tags: string[]): string {
     }
   }
   return CATEGORY_MAPPING["_default"];
+}
+
+/**
+ * Find image references in markdown and copy them to the target app's public/images/
+ * Returns content with rewritten image paths.
+ */
+function ingestImages(
+  content: string,
+  sourceDir: string,
+  targetImagesDir: string,
+  dryRun: boolean
+): string {
+  const imageRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  const IMAGE_EXTS = [".png", ".jpg", ".jpeg", ".svg", ".gif", ".webp"];
+
+  return content.replace(imageRegex, (match, alt: string, href: string) => {
+    // Skip external URLs and already-absolute paths
+    if (href.startsWith("http") || href.startsWith("/")) {
+      return match;
+    }
+
+    const ext = path.extname(href).toLowerCase();
+    if (!IMAGE_EXTS.includes(ext)) {
+      return match;
+    }
+
+    const sourcePath = path.resolve(sourceDir, href);
+    const filename = path.basename(href);
+    const targetPath = path.join(targetImagesDir, filename);
+
+    if (!fs.existsSync(sourcePath)) {
+      console.warn(`  Warning: Image not found: ${sourcePath}`);
+      return match;
+    }
+
+    if (dryRun) {
+      console.log(`  Would copy image: ${sourcePath} → ${targetPath}`);
+    } else {
+      if (!fs.existsSync(targetImagesDir)) {
+        fs.mkdirSync(targetImagesDir, { recursive: true });
+      }
+      fs.copyFileSync(sourcePath, targetPath);
+      console.log(`  Copied image: ${filename}`);
+    }
+
+    return `![${alt}](/images/${filename})`;
+  });
 }
 
 /**
@@ -380,9 +427,14 @@ async function ingestPages(hubSlug: string, options: IngestOptions) {
 
     console.log(`Processing: ${file} (${fm.doc_type})`);
 
+    const targetImagesDir = path.resolve(
+      __dirname, "..", "apps", options.app, "public", "images"
+    );
+
     // Transform content
     let transformed = transformMermaid(content);
     transformed = transformLinks(transformed, sourceDir, hubSlug);
+    transformed = ingestImages(transformed, sourceDir, targetImagesDir, !!options.dryRun);
 
     // Transform frontmatter
     const newFrontmatter = transformPageFrontmatter(fm, content);
@@ -425,8 +477,14 @@ async function ingestBlog(slug: string, options: IngestOptions) {
 
   console.log(`Processing: ${fm.title}`);
 
+  const blogSourceDir = path.dirname(sourcePath);
+  const targetImagesDir = path.resolve(
+    __dirname, "..", "apps", options.app, "public", "images"
+  );
+
   // Transform content (no link transforms for blog - different context)
   let transformed = transformMermaid(content);
+  transformed = ingestImages(transformed, blogSourceDir, targetImagesDir, !!options.dryRun);
 
   // Transform frontmatter
   const newFrontmatter = transformBlogFrontmatter(fm, options.category);
@@ -487,8 +545,14 @@ async function ingestWhitepaper(slug: string, options: IngestOptions) {
 
   console.log(`Processing: ${fm.title}`);
 
+  const wpSourceDir = path.dirname(sourcePath);
+  const targetImagesDir = path.resolve(
+    __dirname, "..", "apps", options.app, "public", "images"
+  );
+
   // Transform content
   let transformed = transformMermaid(content);
+  transformed = ingestImages(transformed, wpSourceDir, targetImagesDir, !!options.dryRun);
 
   // Transform frontmatter
   const newFrontmatter = transformWhitepaperFrontmatter(fm, content);

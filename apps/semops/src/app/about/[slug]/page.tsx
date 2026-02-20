@@ -7,35 +7,30 @@ import { ArrowLeft } from 'lucide-react';
 import { mdxOptions, mdxComponents } from '@/lib/mdx-components';
 
 const VALID_SLUGS = [
-  'strategic-data',
-  'explicit-architecture',
-  'semantic-optimization',
-  'semantic-funnel',
-  'what-is-semops',
-  'why-semops',
+  'how-i-got-here',
 ] as const;
 
 type ValidSlug = (typeof VALID_SLUGS)[number];
 
 export async function generateStaticParams() {
-  return VALID_SLUGS.map((pillar) => ({ pillar }));
+  return VALID_SLUGS.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ pillar: string }>;
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { pillar } = await params;
+  const { slug } = await params;
 
-  if (!VALID_SLUGS.includes(pillar as ValidSlug)) {
+  if (!VALID_SLUGS.includes(slug as ValidSlug)) {
     return { title: 'Not Found' };
   }
 
-  const page = await getPage(pillar);
+  const page = await getPage(slug);
 
   if (!page) {
-    return { title: 'Framework' };
+    return { title: 'About' };
   }
 
   return {
@@ -48,18 +43,18 @@ export async function generateMetadata({
   };
 }
 
-export default async function PillarPage({
+export default async function AboutSpokePage({
   params,
 }: {
-  params: Promise<{ pillar: string }>;
+  params: Promise<{ slug: string }>;
 }) {
-  const { pillar } = await params;
+  const { slug } = await params;
 
-  if (!VALID_SLUGS.includes(pillar as ValidSlug)) {
+  if (!VALID_SLUGS.includes(slug as ValidSlug)) {
     notFound();
   }
 
-  const page = await getPage(pillar);
+  const page = await getPage(slug);
 
   if (!page) {
     notFound();
@@ -69,11 +64,11 @@ export default async function PillarPage({
     <article className="container animate-fade-in">
       <div className="py-8 md:py-12 prose-container">
         <Link
-          href="/framework"
+          href="/about"
           className="inline-flex items-center gap-1.5 text-sm text-label hover:text-secondary transition-colors no-underline mb-8"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Framework
+          Back to About
         </Link>
 
         <div className="prose-content space-y-5 text-foreground">

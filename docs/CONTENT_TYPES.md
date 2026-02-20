@@ -137,7 +137,7 @@ Pages use a hub/spoke pattern for hierarchical content.
 | Spoke | `how-i-got-here.mdx` | `/about/how-i-got-here` |
 | Hub | `framework.mdx` | `/framework` |
 | Spoke | `strategic-data.mdx` | `/framework/strategic-data` |
-| Spoke | `symbiotic-architecture.mdx` | `/framework/symbiotic-architecture` |
+| Spoke | `explicit-architecture.mdx` | `/framework/explicit-architecture` |
 | Spoke | `semantic-optimization.mdx` | `/framework/semantic-optimization` |
 
 Blog posts that relate to a hub are linked via absolute routes (e.g., `/blog/how-i-got-here`) rather than being classified as spokes.
@@ -149,7 +149,7 @@ const HUB_ROUTE_CONFIG = {
   "what-is-semops": { route: "/about" },
   "framework": { route: "/framework" },
   "strategic-data": { route: "/framework/strategic-data" },
-  "symbiotic-architecture": { route: "/framework/symbiotic-architecture" },
+  "explicit-architecture": { route: "/framework/explicit-architecture" },
   "semantic-optimization": { route: "/framework/semantic-optimization" },
 };
 ```

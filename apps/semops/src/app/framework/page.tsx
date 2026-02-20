@@ -13,7 +13,7 @@ import {
 export const metadata: Metadata = {
   title: 'Framework',
   description:
-    'The SemOps framework: Strategic Data, Symbiotic Architecture, and Semantic Optimization.',
+    'The SemOps framework: Strategic Data, Explicit Architecture, and Semantic Optimization.',
 };
 
 export default function FrameworkPage() {
@@ -46,9 +46,9 @@ export default function FrameworkPage() {
                 </p>
               </ContentCard>
             </Link>
-            <Link href="/framework/symbiotic-architecture" className="no-underline">
+            <Link href="/framework/explicit-architecture" className="no-underline">
               <ContentCard hover>
-                <h3 className="text-lg font-medium mb-2">Symbiotic Architecture</h3>
+                <h3 className="text-lg font-medium mb-2">Explicit Architecture</h3>
                 <p className="text-sm text-muted-foreground">
                   Encode your strategy into your systems so humans and AI can
                   operate from shared structure. Architecture that evolves with
@@ -90,10 +90,10 @@ export default function FrameworkPage() {
         </Container>
       </FullBleedSection>
 
-      {/* ── 3. Placeholder ────────────────────────────────────────── */}
+      {/* ── 3. GitHub Highlight ────────────────────────────────────────── */}
       <FullBleedSection bg="muted-accent" pattern="dots">
         <Container>
-          <Eyebrow>Coming Soon</Eyebrow>
+          <Eyebrow>GitHub Highlight</Eyebrow>
           <h2 className="text-2xl md:text-3xl font-medium tracking-tight mb-4">
             Core Insights
           </h2>

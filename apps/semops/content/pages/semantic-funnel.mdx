@@ -1,0 +1,102 @@
+---
+title: The Semantic Funnel
+description: >-
+  A mental model that reduces the complexity of data, AI, and human systems to
+  three entities and one knowledge process.
+---
+
+# The Semantic Funnel
+
+Every organization runs on decisions. Data is collected, analysis interprets it, teams act on it, and leadership sets direction based on what they believe to be true. Behind every one of those steps is the same basic challenge: do I have enough information, do I have the right information, and how do I evaluate whether my interpretation is correct? Peter Drucker coined the term "<a href="https://github.com/semops-ai/semops-docs/blob/main/RESEARCH/FOUNDATIONS/foundations-cognition.md" target="_blank" rel="noopener noreferrer">knowledge work</a>" to describe exactly this — work where the primary material is information, not physical goods, and where productivity depends on how well people process, share, and act on what they know.
+
+That challenge predates any technology. But once you layer in technical systems, matrixed organizations, and increasingly sophisticated AI, the complexity of managing information and decisions across all of these actors becomes intractable. Existing frameworks each cover part of this territory — data governance handles schemas, AI frameworks handle models, strategy frameworks handle direction — but none of them span the full range from raw inputs to judgment. Whatever the method, the underlying operation is the same: take raw inputs, apply structure and interpretation, and produce outputs that someone can act on.
+
+The *Semantic Funnel* is a simple model I use to cut through that complexity by grounding it in dynamics that are fundamentally human and that apply with or without technical systems. It combines two ideas that have been around for decades: **Objects, Agents, and Rules (OAR)**, drawn from <a href="https://github.com/semops-ai/semops-docs/blob/main/RESEARCH/FOUNDATIONS/foundations-semantic.md" target="_blank" rel="noopener noreferrer">agent-based modeling</a> and <a href="https://github.com/semops-ai/semops-docs/blob/main/RESEARCH/FOUNDATIONS/foundations-data.md" target="_blank" rel="noopener noreferrer">business rules</a> theory, which describes the entities in any system; and the **<a href="https://github.com/semops-ai/semops-docs/blob/main/RESEARCH/FOUNDATIONS/dikw-theory-comparison.md" target="_blank" rel="noopener noreferrer">DIKW hierarchy</a>**, from information science (Zeleny 1987, Ackoff 1989, Bellinger et al. 2004), which describes how raw data is progressively transformed into judgment. Together, they simplify everything businesses do into one process of cognitive work — and that work can be done by humans, machines, or both.
+
+## Three Entities: Objects, Agents, Rules
+
+I wanted to reduce the number of "things" to the smallest set that still captures what's actually happening when work gets done. Humans and machines act on documents, products, decisions, code, and data. All of these flow through constraints — process, policy, regulations, physics. OAR reduces this to three entities:
+
+| Entity | What It Is | Examples |
+|--------|-----------|----------|
+| **Objects** | Things that exist and can be acted upon | Data, documents, products, money, decisions |
+| **Agents** | Things that can decide | People, teams, software, AI systems |
+| **Rules** | Things that constrain action | Process, policy, regulations, laws of physics |
+
+Rules represent decisions that have already been made — encoded so that work can proceed without requiring a fresh decision every time. A schema is a Rule. A business policy is a Rule. A set of architectural principles is a Rule. When Rules are sufficient and correct, work becomes repeatable. When they're insufficient or conflicting, a decision is required, and uncertainty re-enters the system.
+
+## One Knowledge Process: DIKW
+
+With OAR describing the entities, the next question is: how does raw data get transformed into progressively richer structures — rich enough to make difficult decisions and execute the plans that follow? The DIKW hierarchy describes this as a progressive transformation through four levels. I adopt the interpretation from Bellinger et al. (2004), which treats Understanding not as a fifth level but as the process that drives each transformation — the cognitive work an Agent does to move Objects from one level to the next. This is a deliberate choice among several existing interpretations in the DIKW literature, and it matters because it makes Understanding operational: it's something Agents *do*, not something that sits on a shelf.
+
+![DIKW hierarchy: Data, Information, Knowledge, Wisdom with Understanding as the process connecting each level](/images/dikw.drawio.svg)
+
+- **Data → Information**: Understanding **relationships** — how to structure raw facts into something organized. ("know-what")
+- **Information → Knowledge**: Understanding **patterns** — how structured information connects into actionable signals. ("know-how")
+- **Knowledge → Wisdom**: Understanding **principles** — why patterns exist, how to judge, what values to apply. ("know-why")
+
+## How It Fits Together
+
+*For technical readers:* The Semantic Funnel's power is in the combination. Every DIKW level is an Object. Every transformation is an Agent applying Rules to move Objects up the hierarchy. And the system is self-referential — Rules are also Objects, created by Agents, which means the funnel governs its own governance.
+
+| DIKW Transformation | Rule Class | Agent Action | Example |
+|---------------------|------------|--------------|---------|
+| **D → I** | Structural | Apply schema, define relationships | Parse raw logs into typed fields |
+| **I → K** | Interpretive | Detect patterns, infer causality | Identify churn signals from structured metrics |
+| **K → W** | Normative | Apply judgment, values, principles | Decide to prioritize retention over acquisition |
+
+This means any system — a data pipeline, an AI agent, a business process, a human decision — can be described and reasoned about using the same vocabulary. When a data engineer defines a schema, that's a Structural Rule at the D→I level. When an analyst identifies churn risk from converging signals, that's an Interpretive Rule at I→K. When leadership decides to prioritize long-term customer value, that's a Normative Rule at K→W. The vocabulary works the same way regardless of the domain.
+
+But something changes as you move up the hierarchy that the original DIKW model doesn't address. DIKW assumes intrinsic correctness — that properly structured Information reliably yields correct Knowledge. In practice, correctness is probabilistic:
+
+| Transformation | Determinism | What's Required |
+| ---------------- | ------------- | ----------------- |
+| **D → I** | High | Apply the right schema — once correct, repeatable every time |
+| **I → K** | Medium | Interpret patterns, infer causality — probabilistic |
+| **K → W** | Low | Apply judgment, values, principles — highly uncertain |
+
+Beyond Information, objective correctness gives way to contextual appropriateness — I→K requires inference under ambiguity, and K→W requires judgment under genuine uncertainty where values and principles guide but do not determine the outcome.
+
+This is why the model takes the shape of a funnel. As work moves up the hierarchy, the Rules become more complex, the margin for error shrinks, and the Agents need more capability. Understanding — the process that drives each transformation — is not something you can observe directly. What shows up in artifacts is the decision, not the reasoning that produced it. The trade-offs weighed, the paths considered, the conflicts resolved — that work is invisible. Only the output survives.
+
+This is why Rules are central to the model. If understanding is ephemeral and correctness degrades with complexity, then encoding reliable decisions as Rules is how you make the system work.
+
+| Rule Type | What It Captures | Example |
+| --------- | ---------------- | ------- |
+| **Structural** (D→I) | How to interpret raw data | "This field is a date, that column is revenue" |
+| **Interpretive** (I→K) | How to recognize patterns | "When these three signals align, it indicates churn risk" |
+| **Normative** (K→W) | How to apply judgment | "We prioritize long-term customer value over short-term revenue" |
+| **Meta-rules** (Wisdom) | Rules about rules | Strategy, mission, principles — where the organization intends to go |
+
+The effect is directional: you take what was a high-reasoning Agent task — one requiring fresh understanding every time — and convert it into a low-reasoning Agent operating within strong Rule guardrails. But only once you've learned your way into those Rules. The organizational incentive is always to push work down into more deterministic levels of the funnel.
+
+Organizations cycle between these modes constantly — building Rules, encountering situations where existing Rules fall short, re-understanding, and producing better Rules. When they face something genuinely new, the cycle starts over from scratch. This is the engine of organizational learning, and it runs at every level of the funnel.
+
+![Semantic Funnel: Objects, Agents, and Rules across DIKW levels](/images/semantic-funnel-3.drawio.svg)
+
+
+## How It Applies to AI and Semantic Operations
+
+The Semantic Funnel is a mental model. It becomes useful when you apply it to two things that matter right now: AI and the operational discipline of managing meaning at scale.
+
+AI is an accelerator. It combines the decision capability of humans with the speed and scale of data systems, but inherits the error profile of humans: it can be wrong. Its most novel contribution is at the I→K level — detecting patterns, inferring causality, and surfacing knowledge faster and more consistently than humans working alone. AI does not generate understanding or wisdom alone, but it can help humans understand by holding massive context in place while they reason toward the correct meaning — if the right conditions exist.
+
+This is where Semantic Operations picks up. The Semantic Funnel describes the process; SemOps provides the operational discipline to make it work at scale — with or without AI. The framework maps directly onto the funnel through three pillars:
+
+**Strategic Data** manages D→I. This is where errors should be lowest — apply the right schema and the result is deterministic. Schema is not just good practice; it's the prerequisite for everything above it in the funnel. Without clean, well-structured Information, Knowledge and Wisdom are built on noise.
+
+**Semantic Optimization** operates at I→K and above — measuring and maintaining *semantic coherence* as meaning propagates across teams, systems, and AI agents. Coherence is the condition where shared meaning is available, consistent, and stable across the organization. This is where drift happens, where interpretations diverge, and where active governance matters most.
+
+**Explicit Architecture** encodes K→W and holds understanding in place. Wisdom in a business is not abstract philosophy — it's a forecasted value: the organizational purpose expressed as mission, principles, and strategic tenets. Architecture that explicitly reflects the business domain encodes that wisdom into the system, and becomes the scaffolding that enables *suspended understanding* — holding the runtime process of understanding in structured memory rather than losing it between sessions and handoffs.
+
+The conditions that make AI reliable are the same conditions that make organizations coherent. When Objects are well-structured, Rules are explicit, and Agents have clear boundaries, AI performs better — and so does everything else. The Semantic Funnel makes this visible: invest in the conditions for meaning, and both human and machine performance improve.
+
+## A Shared Vocabulary for Meaning
+
+The Semantic Funnel gives practitioners — technical and non-technical — a shared way to reason about what their organization actually does with information. It provides a common vocabulary for identifying what kind of work is happening at each level, what kind of rules govern it, and what kind of agents are best suited to perform it. And it provides a foundation for designing systems where humans and AI complement each other, each operating where they're strongest in the funnel.
+
+This is the mental model that the rest of the Semantic Operations framework builds on.
+
+> [Why SemOps?](/framework/why-semops) — The full case for why meaning matters and what makes it hard.
+>
+> [The Framework](/framework) — How the four pillars of SemOps build on this foundation.
