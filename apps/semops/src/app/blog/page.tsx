@@ -1,67 +1,93 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/mdx';
+import { PostRow } from '@/components/post-row';
 
 export const metadata: Metadata = {
-  title: 'Writing',
-  description:
-    'Essays, observations, and working notes on product, AI, and data.',
+ title: 'Blog',
+ description:
+ 'Essays, observations, and half-ideas about SemOps, AI, data, tech, etc..',
 };
 
-export default async function BlogPage() {
-  const posts = await getAllPosts();
+export default async function BlogPage {
+ const posts = await getAllPosts;
 
-  return (
-    <div className="container animate-fade-in">
-      <section className="py-8 md:py-12 max-w-[720px] mx-auto">
-        <h1 className="mb-4">Writing</h1>
-        <p className="text-muted-foreground">
-          Essays, observations, and working notes on product, AI, and data.
-        </p>
-      </section>
+ if (posts.length === 0) {
+ return (
+ <div className="container animate-fade-in">
+ <section className="py-8 md:py-12 max-w-[720px] mx-auto">
+ <h1 className="mb-4">Writing</h1>
+ <p className="text-muted-foreground">
+ Essays, observations, and working notes on product, AI, and data.
+ </p>
+ <p className="text-muted-foreground text-center py-16">
+ No posts yet. Check back soon!
+ </p>
+ </section>
+ </div>
+ );
+ }
 
-      <section className="max-w-[720px] mx-auto pb-12">
-        {posts.length === 0 ? (
-          <p className="text-muted-foreground text-center py-16">
-            No posts yet. Check back soon!
-          </p>
-        ) : (
-          <div className="divide-y divide-border">
-            {posts.map((post) => {
-              const formattedDate = new Date(post.date).toLocaleDateString(
-                'en-US',
-                { month: 'short', year: 'numeric' }
-              );
+ // Featured post: first post with featured: true, or fallback to latest
+ const featuredPost = posts.find((p) => p.featured) ?? posts[0];
+ // Remaining posts (excluding featured)
+ const remainingPosts = posts.filter((p) => p.slug !== featuredPost.slug);
 
-              return (
-                <article key={post.slug} className="group py-5 first:pt-0">
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="block no-underline"
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1 min-w-0">
-                        {post.category && (
-                          <span className="tag mb-2">{post.category}</span>
-                        )}
-                        <h3 className="text-base font-medium text-foreground group-hover:text-secondary transition-colors mb-1">
-                          {post.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground line-clamp-2">
-                          {post.excerpt}
-                        </p>
-                      </div>
-                      <time className="text-sm text-muted-foreground shrink-0 tabular-nums">
-                        {formattedDate}
-                      </time>
-                    </div>
-                  </Link>
-                </article>
-              );
-            })}
-          </div>
-        )}
-      </section>
-    </div>
-  );
+ const formatDate = (date: string) =>
+ new Date(date).toLocaleDateString('en-US', {
+ month: 'short',
+ year: 'numeric',
+ });
+
+ return (
+ <div className="container animate-fade-in">
+ <section className="py-8 md:py-12 max-w-[720px] mx-auto">
+ <h1 className="mb-4">Writing</h1>
+ <p className="text-muted-foreground mb-12">
+ Essays, observations, and working notes on product, AI, and data.
+ </p>
+
+ {/* Featured Post */}
+ <Link
+ href={`/blog/${featuredPost.slug}`}
+ className="group block no-underline rounded-xl border border-border bg-card p-6 mb-12 hover:shadow-md transition-all"
+ >
+ <span className="tag mb-3">Featured</span>
+ <h2 className="text-xl font-medium mb-2 group-hover:text-secondary transition-colors">
+ {featuredPost.title}
+ </h2>
+ <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+ {featuredPost.excerpt}
+ </p>
+ <div className="flex items-center gap-3 text-xs text-muted-foreground">
+ {featuredPost.category && (
+ <>
+ <span>{featuredPost.category}</span>
+ <span>·</span>
+ </>
+ )}
+ <time>{formatDate(featuredPost.date)}</time>
+ </div>
+ </Link>
+
+ {/* All Posts */}
+ {remainingPosts.length > 0 && (
+ <div>
+ <h3 className="text-sm font-medium uppercase tracking-wide text-muted-foreground mb-4">
+ All Posts
+ </h3>
+ <div className="divide-y divide-border">
+ {remainingPosts.map((post) => (
+ <PostRow
+ key={post.slug}
+ post={post}
+ showCategory
+ />
+ ))}
+ </div>
+ </div>
+ )}
+ </section>
+ </div>
+ );
 }

@@ -95,7 +95,6 @@ Thumbs.db
 *.db
 
 # Python
-venv/
 __pycache__/
 *.py[cod]
 *$py.class
@@ -124,3 +123,4 @@ wheels/
 .dockerignore
 Dockerfile.local.turbo
 tsconfig.tsbuildinfo
+.vercel

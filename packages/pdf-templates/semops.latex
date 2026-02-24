@@ -1,6 +1,6 @@
 % SemOps brand LaTeX template for Pandoc PDF export
 % Typography: DM Sans (body) + JetBrains Mono (headings, code)
-% Colors: Forest green accents
+% Colors: Crimson accents on light background
 
 \documentclass[11pt,a4paper]{article}
 
@@ -8,8 +8,8 @@
 \usepackage{fontspec}
 \usepackage{unicode-math}
 
-% Set fonts - using explicit paths from semops-sites/packages/fonts for robustness
-\newcommand{\fontspath}{../fonts/ttf}
+% Set fonts - using explicit paths from sites-pr/packages/fonts for robustness
+\newcommand{\fontspath}{/home/tim/GitHub/sites-pr/packages/fonts/ttf}
 \setmainfont{DMSans}[
   Path=\fontspath/,
   Extension=.ttf,
@@ -36,14 +36,14 @@
   BoldItalicFont=*-BoldItalic
 ]
 
-% Colors - from semops design system
+% Colors - from semops design system (crimson brand, 2026-02)
 \usepackage{xcolor}
-\definecolor{primary}{HTML}{3a6b54}       % Forest green hsl(152 32% 28%)
-\definecolor{foreground}{HTML}{1c1e22}    % Dark gray hsl(220 10% 12%)
-\definecolor{muted}{HTML}{6e7179}         % Gray hsl(220 5% 46%)
-\definecolor{emphasis}{HTML}{814040}      % Dark red hsl(0 45% 35%)
+\definecolor{primary}{HTML}{931037}       % Crimson-foreground hsl(342 80% 32%)
+\definecolor{foreground}{HTML}{1f1f1f}    % Near-black hsl(0 0% 12%)
+\definecolor{muted}{HTML}{737373}         % Gray hsl(0 0% 45%)
+\definecolor{emphasis}{HTML}{c32253}      % Mid-crimson hsl(342 70% 45%)
 \definecolor{codebg}{HTML}{f3f4f6}        % Light gray hsl(220 14% 96%)
-\definecolor{border}{HTML}{dddee0}        % Border gray hsl(220 5% 88%)
+\definecolor{border}{HTML}{d1d1d1}        % Border gray hsl(0 0% 82%)
 
 % Page layout
 \usepackage[

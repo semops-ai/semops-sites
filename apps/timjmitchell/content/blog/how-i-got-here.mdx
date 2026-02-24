@@ -1,0 +1,49 @@
+---
+title: "How I Got Here"
+date: "2026-02-17"
+author: "Tim Mitchell"
+category: "Industry"
+tags: ["semops", "founder", "narrative"]
+excerpt: "The journey from product management to building the Semantic Operations Framework."
+---
+
+## Starting Fresh
+
+In 2024, I left Microsoft and took a year off. The plan was to recharge, enjoy some personal pursuits, and then go back to work. Towards the end of that year, I started exploring AI — casually at first, then with more direction. I had considered AI as a possible career direction for the past few years, given my experience and interest, but not with any serious intent. With time off to explore, the intent became stronger, so then the question became: what do I need to learn?
+
+I got technical. I dove into agents, RAG pipelines, Python, model mechanics, data science, data engineering, and explored GitHub and Huggingface for methods, approaches, trends. I even went beyond LLMs into image, audio, and video generation. I forced myself to use open source and open standards, wanting to understand core concepts and not tools or SaaS shortcuts. As a non-developer, I received guidance from some trusted ex-colleagues to resist just "vibe-coding" and to get solid on foundational software engineering skills — Bash, CI/CD, repositories, basic infrastructure. I wanted to understand how things actually work.
+
+I also got theoretical — even a bit philosophical, dare I say. I followed current trends, and I tried to keep up with the industry and innovation, but I found more insight in older, foundational frameworks pre-dating AI, many pre-dating the internet. I had a strong intuition, based on a career spanning several big technological shifts, that trying to understand the human component was going to be more valuable than knowing the names of the agent frameworks. And then I just started building stuff.
+
+## What I Discovered
+
+About 8 months into this journey, I took on some consulting work. The companies had significant data challenges to address before AI was even relevant, which I expected. My PM career has been mostly in data-heavy domains: ML-powered recommendations, search and discovery, catalog systems, analytics platforms. In these domains, outcomes depend heavily on the data layer — schema, governance, instrumentation, transformation, analytics, observability - all cross-cutting teams and ownership boundaries. I consider AI to be "fancy analytics", and nothing so far has convinced me that, at least operationally, it's not, especially when it came to the barriers to success.
+
+So that was the bad news, but the good news was... maybe I could fix it? When I say "I", I actually mean I as in me, as in the not-a-developer PM person. I was already impressed with agentic coding from my earlier explorations, but when I applied it to real-world paying clients, and in complex domains — data engineering, data science — things started clicking. Don't get me wrong, I wasn't coming in cold to these disciplines, and expectations were set - I wasn't promising gold-standard production quality and a real engineer would make it robust and scale, but still.
+
+The revelation that caught me off guard was the potential benefit to AI from the seemingly "boring" side of data - governance. And the data work as well as my own exploration led me somewhere I hadn't expected: architecture. Architecture was the domain of the white-robed Principal Engineers I had worked with at Amazon and Microsoft - this wasn't for mere mortals. Regardless, for the problems I wanted to solve, vibe coding wasn't going to cut it, and vibe architecting is only an inside joke between me and my dog. But understanding the data layer means understanding how systems are structured and why, more so when AI is inserted.
+
+A broader picture was forming. AI models by themselves aren't solutions. They require whole systems around them and those systems need accuracy to function well. The model is a powerful but relatively small component. The same systems exist without AI, and they're the data and enterprise systems that have always needed consistency to enable good decisions. Retrieval Augmented Generation turned out to be mostly search indexing and data pipelines with a model on top. Agentic platforms were largely governance — controlling scope, enforcing rules, managing context. The AI was impressive, but the infrastructure around it was familiar. So what data object measures things like accuracy, consistency, and quality? The object is **semantics**, but the meaning is... well... meaning.
+
+## The Framework Emerges
+
+A pattern emerged: the conditions that make AI work well — clear definitions, consistent structure, domain-aligned architecture, explicit governance — are the same conditions that make organizations work well, with or without AI. Analytics, experimentation, personalization, KPIs, ML/data science — they all depend on the same foundation of shared meaning. AI makes the problem, and the opportunity, bigger and broader.
+
+I didn't set out to build a framework, and in fact I had to figure out exactly what a framework is to use the label. What started out as some custom tools and agents built to solve data and AI integration work evolved into **Semantic Operations (SemOps)**.
+
+## What This Is
+
+[What is SemOps](https://semops.ai/framework/what-is-semops) at this stage? It's a structured approach with methods, principles, architectural patterns, and implementation code. It's open source and available through [SemOps-ai on GitHub](https://github.com/semops-ai). It's built using its own principles, and I'm building the plane while flying.
+
+## A Final Note
+
+I'm one person with a hypothesis about how AI might work to help businesses and organizations, but I also have a point of view. I'm genuinely optimistic — cautiously — that AI can benefit people broadly, and not just in monetary ways. And I believe and hope that the benefit doesn't just go to those with tech skills or high-paying tech jobs. In fact, I think that Semantic Operations probably works better and has more impact in a small business than anywhere else right now, and I'm hoping to prove it soon. In my more utopian moments, which don't occur often, I can envision a healthier tech sector with less centralization and more real, impactful innovation. I can envision a lot of jobs being more fulfilling, not less; but I'm also a pragmatist, and like any tool, AI is used by people, and I guess we'll see what happens. I am building Semantic Operations to be the future I'd like to see, and I will share more as things progress.
+
+
+
+## Related Links
+
+- [What is SemOps?](https://semops.ai/framework/what-is-semops) — The framework definition and overview
+- [Why SemOps?](https://semops.ai/framework/why-semops) — The full case for why meaning matters
+- [The Semantic Funnel](https://semops.ai/framework/semantic-funnel) — The mental model behind the framework
+- [The Framework](https://semops.ai/framework/framework) — Full treatment of all pillars

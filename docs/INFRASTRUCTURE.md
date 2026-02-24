@@ -8,19 +8,21 @@
 
 ## Services
 
-| Service | Purpose |
-| ------- | ------- |
-| timjmitchell.com (Next.js) | Personal site |
-| semops.ai (Next.js) | SemOps site |
-| Supabase API | REST/GraphQL API |
-| PostgreSQL | Database (direct) |
-| Supabase Studio | Database UI |
-| Inbucket | Email testing |
-| Analytics | Local analytics |
+> **Port authority:** [PORTS.md](https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/PORTS.md) — the single source of truth for all port allocations. Register new ports there before use.
+
+| Service | Port | Purpose |
+| ------- | ---- | ------- |
+| timjmitchell.com (Next.js) | 3100 | Personal site |
+| semops.ai (Next.js) | 3101 | SemOps site |
+| Supabase API | 54321 | REST/GraphQL API |
+| PostgreSQL | 54322 | Database (direct) |
+| Supabase Studio | 54323 | Database UI |
+| Inbucket | 54324 | Email testing |
+| Analytics | 54327 | Local analytics |
 
 ## Docker Configuration
 
-semops-sites uses Docker only for local Supabase development (no custom Docker Compose).
+Sites-pr uses Docker only for local Supabase development (no custom Docker Compose).
 
 ### Starting Services
 
@@ -47,10 +49,10 @@ Migrations in `apps/timjmitchell/supabase/migrations/`:
 
 ```text
 supabase/
-├── config.toml        # Supabase configuration
-├── migrations/        # SQL migration files
-│   └── *.sql
-└── seed.sql           # Demo/test data
+├── config.toml # Supabase configuration
+├── migrations/ # SQL migration files
+│ └── *.sql
+└── seed.sql # Demo/test data
 ```
 
 Row Level Security — all tables use RLS for public read access:
@@ -66,7 +68,7 @@ CREATE POLICY "Public read" ON positions FOR SELECT USING (true);
 Created automatically by `npx supabase start`:
 
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:<supabase-api>
+NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<local-anon-key>
 SUPABASE_SERVICE_ROLE_KEY=<local-service-key>
 ```
@@ -85,7 +87,7 @@ How this repo connects to shared infrastructure:
 
 | Service | Method | Details |
 | ------- | ------ | ------- |
-| Supabase (local) | Local dev server | Via `NEXT_PUBLIC_SUPABASE_*` env vars. Auto-configured by `npx supabase start` |
+| Supabase (local) | `localhost:54321` | Via `NEXT_PUBLIC_SUPABASE_*` env vars. Auto-configured by `npx supabase start` |
 | Supabase (prod) | Supabase Cloud | Via Vercel env vars. RLS enforced for public access |
 | semops-publisher | Git-based | Content ingested via `npm run ingest` from semops-publisher working copy |
 
@@ -104,22 +106,22 @@ How this repo connects to shared infrastructure:
 
 ### Key Dependencies
 
-| Library | Purpose |
-| ------- | ------- |
-| `next-mdx-remote` | MDX processing for React Server Components |
-| `rehype-prism-plus` | Build-time syntax highlighting (zero client JS) |
-| `mermaid` | Diagram rendering (client-side, ~200KB) |
-| `gray-matter` | Frontmatter parsing |
-| `@supabase/supabase-js` | Database client |
-| `recharts` | Data visualization |
+| Library | Purpose | Shared With |
+| ------- | ------- | ----------- |
+| `next-mdx-remote` | MDX processing for React Server Components | — |
+| `rehype-prism-plus` | Build-time syntax highlighting (zero client JS) | — |
+| `mermaid` | Diagram rendering (client-side, ~200KB) | — |
+| `gray-matter` | Frontmatter parsing | — |
+| `@supabase/supabase-js` | Database client | — |
+| `recharts` | Data visualization (career timeline) | — |
 
 ### Setup
 
 ```bash
-npm install        # Install all workspace dependencies
-npm run dev        # Start all apps via Turborepo
-npm run build      # Production build all apps
-npm run lint       # ESLint check all apps
+npm install # Install all workspace dependencies
+npm run dev # Start all apps via Turborepo
+npm run build # Production build all apps
+npm run lint # ESLint check all apps
 ```
 
 ## Deployment (Vercel)
@@ -135,9 +137,11 @@ npm run lint       # ESLint check all apps
 ```bash
 # Manual deploy (from app directory)
 cd apps/[app-name]
-vercel              # Preview
-vercel --prod       # Production
+vercel # Preview
+vercel --prod # Production
 ```
+
+See [VERCEL_RUNBOOK.md](VERCEL_RUNBOOK.md) for monorepo-specific patterns and troubleshooting.
 
 ## Edge/CDN (Cloudflare)
 
@@ -171,7 +175,7 @@ Supabase access control: Row Level Security (RLS) on all tables, API key scoping
 
 | Service | Check | Command |
 | ------- | ----- | ------- |
-| Next.js (dev) | HTTP response | `curl <timjmitchell-dev>` / `curl <semops-dev>` |
+| Next.js (dev) | HTTP response | `curl http://localhost:3100` / `curl http://localhost:3101` |
 | Supabase | Status output | `npx supabase status` |
 | Vercel (prod) | Deployment status | `vercel ls` |
 
@@ -198,3 +202,7 @@ Supabase access control: Row Level Security (RLS) on all tables, API key scoping
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) - This repo's architecture
 - [STACK-OVERVIEW.md](STACK-OVERVIEW.md) - Detailed technology guide
+- [VERCEL_RUNBOOK.md](VERCEL_RUNBOOK.md) - Vercel deployment patterns and troubleshooting
+- [GLOBAL_INFRASTRUCTURE.md](https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/GLOBAL_INFRASTRUCTURE.md) - Ecosystem connectivity, network conventions, env var standards
+- [PORTS.md](https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/PORTS.md) - Port registry (single source of truth)
+- [DIAGRAMS.md](https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/DIAGRAMS.md) - Infrastructure service diagrams

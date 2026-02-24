@@ -5,11 +5,11 @@ This document defines the content type contracts for semops-sites. Content is au
 ## Ingestion Workflow
 
 ```text
-semops-publisher (Markdown)                    semops-sites (MDX)
+semops-publisher (Markdown) semops-sites (MDX)
 ──────────────────────────────────────────────────────────────
-content/pages/<hub>/*.md              →    apps/<app>/content/pages/*.mdx
-posts/<slug>/final.md                 →    apps/<app>/content/blog/*.mdx
-content/whitepapers/<slug>/<slug>.md  →    apps/<app>/content/whitepapers/*.mdx
+content/pages/<hub>/*.md → apps/<app>/content/pages/*.mdx
+posts/<slug>/final.md → apps/<app>/content/blog/*.mdx
+content/whitepapers/<slug>/<slug>.md → apps/<app>/content/whitepapers/*.mdx
 ```
 
 **Command:**
@@ -25,9 +25,9 @@ npm run ingest -- blog <slug> --app <semops|timjmitchell>
 npm run ingest -- whitepaper <slug> --app <semops|timjmitchell>
 
 # Options
---dry-run        Preview without writing
---category       Override derived category (blog only)
---source         Override semops-publisher path
+--dry-run Preview without writing
+--category Override derived category (blog only)
+--source Override semops-publisher path
 ```
 
 ## Type Contracts
@@ -110,8 +110,8 @@ description: "SemOps is a practical framework for businesses to align technology
 title: "Semantic Operations: Building AI-Ready Organizations"
 description: "A practical framework for transforming semantic debt into sustainable competitive advantage."
 abstract: |
-  Organizations investing in AI face a structural problem: the systems meant to
-  accelerate decisions often can't agree on what the data means.
+ Organizations investing in AI face a structural problem: the systems meant to
+ accelerate decisions often can't agree on what the data means.
 author: "Tim Mitchell"
 date: "2026-01-19"
 version: "v2"
@@ -129,7 +129,7 @@ tags: ["semops", "framework", "ai-integration", "whitepaper"]
 
 ## Hub/Spoke Page Structure
 
-Pages use a hub/spoke pattern for hierarchical content.
+Pages use a hub/spoke pattern for hierarchical content. See [ADR-0007](decisions/ADR-0007-semops-information-architecture.md) for the full site map.
 
 | Role | Example | Route |
 | ---- | ------- | ----- |
@@ -137,7 +137,7 @@ Pages use a hub/spoke pattern for hierarchical content.
 | Spoke | `how-i-got-here.mdx` | `/about/how-i-got-here` |
 | Hub | `framework.mdx` | `/framework` |
 | Spoke | `strategic-data.mdx` | `/framework/strategic-data` |
-| Spoke | `explicit-architecture.mdx` | `/framework/explicit-architecture` |
+| Spoke | `symbiotic-architecture.mdx` | `/framework/symbiotic-architecture` |
 | Spoke | `semantic-optimization.mdx` | `/framework/semantic-optimization` |
 
 Blog posts that relate to a hub are linked via absolute routes (e.g., `/blog/how-i-got-here`) rather than being classified as spokes.
@@ -146,11 +146,11 @@ Blog posts that relate to a hub are linked via absolute routes (e.g., `/blog/how
 
 ```typescript
 const HUB_ROUTE_CONFIG = {
-  "what-is-semops": { route: "/about" },
-  "framework": { route: "/framework" },
-  "strategic-data": { route: "/framework/strategic-data" },
-  "explicit-architecture": { route: "/framework/explicit-architecture" },
-  "semantic-optimization": { route: "/framework/semantic-optimization" },
+ "what-is-semops": { route: "/about" },
+ "framework": { route: "/framework" },
+ "strategic-data": { route: "/framework/strategic-data" },
+ "symbiotic-architecture": { route: "/framework/symbiotic-architecture" },
+ "semantic-optimization": { route: "/framework/semantic-optimization" },
 };
 ```
 
@@ -166,9 +166,9 @@ Content images (diagrams, figures referenced in MDX) are stored in each app's `p
 
 ```text
 apps/<app>/public/
-├── images/              # Content images (diagrams, figures)
-│   └── semantic-funnel.svg
-└── logos/               # Brand assets (logos, icons)
+├── images/ # Content images (diagrams, figures)
+│ └── semantic-funnel.svg
+└── logos/ # Brand assets (logos, icons)
 ```
 
 **In semops-publisher source:** Reference images with absolute paths that map to the app's public directory:
@@ -193,9 +193,9 @@ Renders Mermaid diagrams client-side.
 
 ```jsx
 <MermaidDiagram chart={`flowchart TD
-    A[Start] --> B{Decision}
-    B -->|Yes| C[End]
-    B -->|No| A`} />
+ A[Start] --> B{Decision}
+ B -->|Yes| C[End]
+ B -->|No| A`} />
 ```
 
 **Supported diagram types:**
@@ -212,7 +212,7 @@ The ingestion script automatically converts Mermaid code blocks:
 ````markdown
 ```mermaid
 graph TD
-    A --> B
+ A --> B
 ```
 ````
 
@@ -220,7 +220,7 @@ becomes:
 
 ```jsx
 <MermaidDiagram chart={`graph TD
-    A --> B`} />
+ A --> B`} />
 ```
 
 ## Type Definitions
@@ -229,27 +229,27 @@ Types are defined in `apps/<app>/src/types/blog.ts`:
 
 ```typescript
 interface BlogFrontmatter {
-  title: string;
-  date: string;
-  author: string;
-  category: string;
-  tags: string[];
-  excerpt: string;
+ title: string;
+ date: string;
+ author: string;
+ category: string;
+ tags: string[];
+ excerpt: string;
 }
 
 interface PageFrontmatter {
-  title: string;
-  description: string;
+ title: string;
+ description: string;
 }
 
 interface WhitepaperFrontmatter {
-  title: string;
-  description: string;
-  abstract?: string;
-  author: string;
-  date: string;
-  version?: string;
-  tags: string[];
+ title: string;
+ description: string;
+ abstract?: string;
+ author: string;
+ date: string;
+ version?: string;
+ tags: string[];
 }
 ```
 

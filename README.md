@@ -25,14 +25,14 @@
 ```bash
 # Setup
 npm install
-npx supabase start  # Start local Supabase
+npx supabase start # Start local Supabase
 
 # Development
-npm run dev         # Start all apps via Turborepo
+npm run dev # Start all apps via Turborepo
 
 # Build
-npm run build       # Production build
-npm run lint        # ESLint check
+npm run build # Production build
+npm run lint # ESLint check
 ```
 
 ## Project Structure
@@ -40,18 +40,18 @@ npm run lint        # ESLint check
 ```
 semops-sites/
 ├── apps/
-│   ├── timjmitchell/     # Personal site
-│   └── semops/           # Product/consulting site
-│       ├── src/
-│       │   ├── app/      # Next.js App Router
-│       │   ├── components/
-│       │   └── lib/
-│       ├── content/blog/ # MDX posts
-│       └── public/
+│ ├── timjmitchell/ # Personal site
+│ └── semops/ # Product/consulting site
+│ ├── src/
+│ │ ├── app/ # Next.js App Router
+│ │ ├── components/
+│ │ └── lib/
+│ ├── content/blog/ # MDX posts
+│ └── public/
 ├── packages/
-│   └── shared/           # Shared components
+│ └── shared/ # Shared components
 ├── supabase/
-│   └── migrations/       # Schema changes
+│ └── migrations/ # Schema changes
 └── docs/
 ```
 
@@ -59,19 +59,19 @@ semops-sites/
 
 ```
 semops-dx-orchestrator [PLATFORM/DX]
-        │
-        ▼
+ │
+ ▼
 semops-core [SCHEMA/INFRASTRUCTURE]
-        │
-        │  Provides: Schema, brand data, entities
-        │
-        ├───────────────────────┐
-        │                       │
-        ▼                       ▼
-semops-publisher           semops-sites  ← This repo
-        │                       │
-        │  Provides: Content    │  Owns: Deployed frontends
-        └───────────────────────┘
+ │
+ │ Provides: Schema, brand data, entities
+ │
+ ├───────────────────────┐
+ │ │
+ ▼ ▼
+semops-publisher semops-sites ← This repo
+ │ │
+ │ Provides: Content │ Owns: Deployed frontends
+ └───────────────────────┘
 ```
 
 ## Key Features

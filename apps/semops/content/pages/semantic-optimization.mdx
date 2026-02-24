@@ -1,8 +1,8 @@
 ---
 title: Semantic Optimization
 description: >-
-  Measuring and growing shared meaning through patterns and coherence — two
-  equal forces in a feedback loop that makes AI acceleration sustainable.
+ Measuring and growing shared meaning through patterns and coherence — two
+ equal forces in a feedback loop that makes AI acceleration sustainable.
 ---
 
 # Semantic Optimization
@@ -31,9 +31,9 @@ Starting from zero — you have a capability you need, and you are looking for a
 
 **Identify the domain.** The domain you need may not depend on industry or discipline specifics. The cleaning service example above is really a logistics problem — dispatch and routing, not cleaning. Be equally wary of discipline-specific solutions that bundle assumptions into core functions. "Customer support" is customer relationships, and you want a solid, robust domain model where "customer" is the driving principle, not one vendor's interpretation of what support means through the lens of some assumed industry requirements. If there are nuances specific to your business, you will adapt them intentionally — not inadvertently acquire someone else's interpretation as cruft. <a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/GLOBAL_ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Your Explicit Architecture</a> will tell you what domain you are actually solving for.
 
-**Prescribe principles, not implementation.** The right source for a domain pattern is a set of principles, rules, and procedures — aligned with open standards, industry standards, or compliance requirements if possible.  The pattern describes what the domain says is correct, the Explicit Architecture encodes the rules, and implementation follows from that. Lean toward neutral, well-documented standards (<a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/domain-patterns/knowledge-organization-systems.md" target="_blank" rel="noopener noreferrer">W3C</a>, <a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/domain-patterns/skos-pattern.md" target="_blank" rel="noopener noreferrer">SKOS</a>, GAAP), not a vendor's data model or a platform's field definitions. Open standards carry no cruft and are already well-represented in AI training data.  There is a side benefit worth calling out: enterprise solutions and cloud platform stacks have layered so much abstraction over business operations that many organizations have lost sight of how their own business actually works. Everyone hopes someone else understands it. Adopting domain patterns reverses that, but without the cognitive load of integration details, because that's left to architecture and agents. I think many leaders, even non-technical ones, will be pleasantly surprised at how much clarity and understanding accelerate progress.
+**Prescribe principles, not implementation.** The right source for a domain pattern is a set of principles, rules, and procedures — aligned with open standards, industry standards, or compliance requirements if possible. The pattern describes what the domain says is correct, the Explicit Architecture encodes the rules, and implementation follows from that. Lean toward neutral, well-documented standards (<a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/domain-patterns/knowledge-organization-systems.md" target="_blank" rel="noopener noreferrer">W3C</a>, <a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/domain-patterns/skos-pattern.md" target="_blank" rel="noopener noreferrer">SKOS</a>, GAAP), not a vendor's data model or a platform's field definitions. Open standards carry no cruft and are already well-represented in AI training data. There is a side benefit worth calling out: enterprise solutions and cloud platform stacks have layered so much abstraction over business operations that many organizations have lost sight of how their own business actually works. Everyone hopes someone else understands it. Adopting domain patterns reverses that, but without the cognitive load of integration details, because that's left to architecture and agents. I think many leaders, even non-technical ones, will be pleasantly surprised at how much clarity and understanding accelerate progress.
 
-**Scope as large as it still works.**  The rule of thumb: as big as you can, and it still works — meaning it can be encoded into an object that fits the architecture, matches the desired capabilities, and can be validated. Going too small is fine, though, because coherence audits will identify pattern overlaps, and consolidating will simply the architecture through a simple audit adjustment.
+**Scope as large as it still works.** The rule of thumb: as big as you can, and it still works — meaning it can be encoded into an object that fits the architecture, matches the desired capabilities, and can be validated. Going too small is fine, though, because coherence audits will identify pattern overlaps, and consolidating will simply the architecture through a simple audit adjustment.
 
 Bigger pattern scopes are good because you will probably go faster, but there is a better reason: Broader patterns preserve meaning and goals in a way that smaller units cannot, because patterns are complete end-states... they are a goal that contains complete path to finished. I'm not anti-Agile/Scrum, but when I recognized the connection between Patterns and Agile, I found extra motivation. Ok, so maybe I'm anti-Agile, but only because I want something better. When goals are decomposed into stories or features, meaning fragments — the end state and goal get abstracted away from all of the work. Software development and Agile aren't the only domains where this happens, and Patterns don't mean that you can do the work all at once, but it does mean that the plan is much clearer, and other the full process of Semantic Optimization makes execution much clearer too. Need a digital publishing system? Why not just adopt the entire standard [Digital Asset Management (DAM)](../../../../semops-dx-orchestrator/docs/domain-patterns/dam-foundations.md) architecture as the Pattern - just bolt it on to your existing DDD architecture, and get the whole thing even if you aren't using most of it yet. I did. Take that, Agile.
 
@@ -57,11 +57,8 @@ Every capability traces to at least one pattern; a capability with no pattern li
 
 | Library | Repository | Script(s) | Capability |
 | ------- | ---------- | --------- | ---------- |
-| **pydantic** | semops-core | `source_config.py`, `api/query.py` | Source Configuration, Query API |
-| | semops-publisher | `config.py` | Publishing Configuration |
-| | semops-backoffice | `voice/shared/schemas.py` | Voice Control Models |
-| **click** | semops-publisher | `publish.py`, `export_pdf.py` | Publishing CLI, PDF Export |
-| | semops-data | `cli.py` | Data Toolkit CLI |
+| **pydantic** | semops-core | `source_config.py`, `api/query.py` | Source Configuration, Query API | | | semops-publisher | `config.py` | Publishing Configuration | | | semops-backoffice | `voice/shared/schemas.py` | Voice Control Models |
+| **click** | semops-publisher | `publish.py`, `export_pdf.py` | Publishing CLI, PDF Export | | | semops-data | `cli.py` | Data Toolkit CLI |
 
 This is how the architecture stays inspectable all the way from intent to infrastructure — and how agents know exactly what context they need.
 
@@ -91,9 +88,9 @@ Patterns provide stable knowledge growth. Coherence creates a stable knowledge s
 
 ```text
 Pattern ──prescribes──→ Implementation
-   ↑                          ↓
-   └──── Coherence ←──measures──┘
-         (directs)
+ ↑ ↓
+ └──── Coherence ←──measures──┘
+ (directs)
 ```
 
 Patterns prescribe what the organization should look like. Coherence measures whether reality matches that intent. Critically, coherence also directs: the arrow back to patterns is not just "report status." When a coherence assessment identifies a gap, the response can be to adopt a new pattern, modify an existing one, revert a pattern that disrupted alignment, or evolve a pattern to match an implementation that drifted for good reason. Sometimes the implementation drifted because the team discovered something the pattern did not account for — coherence assessment reveals this, and the correct response may be to update the pattern rather than force the implementation back.

@@ -8,8 +8,8 @@
 \usepackage{fontspec}
 \usepackage{unicode-math}
 
-% Set fonts - using explicit paths from semops-sites/packages/fonts for robustness
-\newcommand{\fontspath}{../fonts/ttf}
+% Set fonts - using explicit paths from sites-pr/packages/fonts for robustness
+\newcommand{\fontspath}{/home/tim/GitHub/sites-pr/packages/fonts/ttf}
 \setmainfont{Inter}[
   Path=\fontspath/,
   Extension=.ttf,

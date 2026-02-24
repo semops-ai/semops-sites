@@ -1,0 +1,81 @@
+---
+title: "It's Computers"
+date: "2025-10-31"
+author: "Tim Mitchell"
+category: "AI/Tech"
+tags: ["AI", "Business", "Open Source", "Technical"]
+excerpt: "Using 'Ox Framing' to explore why AI hasn't transformed business yet—and what actually matters for practitioners."
+---
+
+In my first post, I mentioned that I've been deep into this AI journey for about a year, and I'm now comfortable poking my head up and expressing some kind of point of view that could be useful to others, so here goes. It was hard to know where to start, or rather, where to finish, so here are the ground rules:
+
+- I needed some kind of framework to limit the scope of this post, so I invented "**Ox Framing**", which is explaining any set of concepts based on the student body campaign speech of the character Ox, in the movie *Bill and Ted's Excellent Adventure*. I don't know how or why this happened, exactly, but accept it as proof that this came from a human and not an LLM.
+- My focus is the practical and technical applications of AI in business and not broader societal, economic, or moral questions. However, touching on those topics from time to time will probably be unavoidable, as is the case right now.
+- The post will not cover topics from the quote past "**It's computers…**". This is for my credibility, because as of this writing, the San Dimas Saints are 4-3, 3rd in their league, and ranked 283 in the state—objectively not ruling.
+
+## "Everything is different, but the same…"
+
+### Same
+
+I'll flip that and start with what's the same. My uncontroversial opinion is that we are not yet seeing big transformations in business, so most things are the same. Yes, an entirely new sector has emerged and we see big growth for OpenAI, Nvidia, Palantir, etc. And there are undoubtedly efficiency gains at the individual level through the use of LLMs and other generative models for various tasks, but the big transformation of both the inputs (work) and output (products/services) **isn't** here yet, in my opinion. I agree with many of the pundits/analysts who will say that most of the big tech layoffs, of which I'm intimately familiar, have more to do with current macroeconomics and past over-expansion than AI, although it's a convenient explanation, given the significant pressure on those same companies to make AI the next big thing.
+
+### Different
+
+I think a lot is different theoretically and potentially if we compare the nature of generative AI to previous transformative tech innovations. A generative AI model is both general-purpose (adds "intelligence") and easily integrated into existing processes or systems (non-domain-specific, highly composable in CS speak). It's also easily accessible through a variety of methods: chat applications, SaaS APIs, cloud-hosted, and even local (like, on your computer), and it is useful as an input/enterprise resource (helps us do work), and as an output/product feature (enables features, new products).
+
+Earlier tech transformations were domain-specific and essentially locked by scale and network effects. For example, web search—I was actually working in search (go HotBot!) when the "wars" were going on, before Google ended it all with a giant nuke called **PageRank**. Search was scale by definition—you needed to index everything and then you needed A LOT of users, then as many advertisers as possible. I guess it turned out you needed all of everything.
+
+Social media platforms, marketplaces (eBay, Amazon), and operating systems (Windows, iOS) are similar in that massive adoption is a requirement, and especially for social media, the feature set. There were a lot of advances in technology, but mostly around achieving scale, and advertising became the business model of scale because you couldn't get the network effects and adoption without it being free to users, and then at some point, even advertisers don't have any other options. Remember that AWS came about because Amazon needed cloud computing to run Amazon. This isn't a rant or a normative judgment, it's just what happened.
+
+You might argue that AI is panning out the same way—a few big tech companies like OpenAI, Google, NVidia, Microsoft, Anthropic, and Amazon are owning the space, but it does not appear, at least at this point, to be a winner-take-all proposition. The competition is quite lively, and innovation appears to be reducing the scale required for good models, as I'll touch on below. Crucially, open source is doing extremely well in this domain, and there are good if not great open-source options for virtually every component in the AI stack, not just the models. So "Big AI" has to compete with and participate in open source, and that's good for everyone. Open source in the context of products that only work through massive network effects and scale-lock doesn't really make sense, as even if the technology and tools were available, they wouldn't accomplish anything. We know how PageRank works, but the last step in the recipe is "now add 1 billion users."
+
+## "Things're more moderner than before…"
+
+"Moderner" is a good stand-in for *AI-washing*, a term for "overpromise-underdeliver" AI marketing. Typically, this refers to products that use "AI" in their naming and positioning as a badge of innovation, when the value is questionable or absent.
+
+One often-cited example is the Oral-B "Genius" AI toothbrush, which is a ~$300 toothbrush with "AI Position Detection" and "3D teeth tracking with AI." To me, this sounds a bit like an *Onion* article, and that seems to be the general consensus. Beauty and skincare is another sector where brands promote "AI-formulated" or smart/algorithmic products that promise results but are thin on technical transparency. I don't want to call any products in particular out, because it's not that I've researched their claims or evaluated the features. I think the point is really the skeptical reaction of the media and consumers, resulting from what I think is an extremely obvious line of logic: "Is it actually AI, and even if it is, does it matter?"
+
+I can certainly believe that a lot of the claims are technically true, because as we discussed above, AI models are accessible, general-purpose, and easily integrated. Whether or not they are meeting the bar, technically, for even basic benchmarking metrics is probably irrelevant, because who is going to check parameter counts or bias metrics when buying face cream? I don't know, maybe that's what's coming, and that would be silly, IMHO.
+
+I can tell you from experience that even "old timey" ML personalization is hard to do well, and part of doing it well is making it obvious that personalization is happening. If you can't tell something "AI" is happening, it's either not happening or it's adding no value so it might as well not be happening. AI can't do magic without being prompted, and it's only magic if the response seems magical to the prompter, whether the prompt is text or images of your bicuspids. I'm willing to give some grace here. It's early days, and the "Now with more AI!" positioning craze was bound to occur, and doing it well is not easy. If I had to guess, AI features will just be part of the product substrate at some point, and the product will be good or not good, and AI might be helping or hurting. But for certain categories, customers will simply expect some level of AI integration, and it has to be "good enough" if it's not the core selling point. Just like you don't see companies crowing that they have a website where you can buy stuff, but they did at one time.
+
+## "Everything is bigger, and yet, smaller…"
+
+Okay, I admit it, fitting my points to this ridiculous *Bill and Ted* quote is getting harder, but I'm all in at this point, so here we go.
+
+### Small Integration Surface Area
+
+Above in the "different" section, we talked about how easy it is to integrate AI models. The complexity is very small because the surface area of the interaction is very small: a prompt input, an inference output. With an LLM, the interface is small because there is no GUI to speak of, just some way to transfer text. Multi-modal models are the same; it's just that the input/output can be text, audio, image, or video. Integration through a service application is small because it's a single API call.
+
+### Small Models
+
+That smallness extends to their actual size. For example, I downloaded the open-source model `mistral-7B-instruct.Q4_K_M.gguf` a while back and the whole model was ~4.2 GB (a 4-bit quantization version). Since my computer's GPU has 24GB of VRAM, it wasn't even breathing hard. That's a pretty "low-powered" model, to be sure, but I can run models that are up to 32 billion parameters on my local machine that has a $1200 Nvidia card, and I have, and they worked pretty well. The fact that they are distinct and small enough to download and use has big benefits when you are in your build phase, doing a lot of testing, and especially if you are working with proprietary, sensitive data. And as I was writing this, Hierarchical Reasoning Models and Tiny Recursive Models are becoming the new hotness, and "tiny" is right, because some of the well-performing models were only 7 Million parameters (with an "M"). To put that in context, GPT-3 has ~175 Billion parameters (~350 GB in size), and GPT-4's parameter count, while unreported, is estimated to be around 1–2 Trillion parameters, where "file size" is no longer a relevant number.
+
+## "It's computers"
+
+I knew when I started that learning to work with AI the way I wanted to was going to mean getting a lot more technical, but I wasn't sure what it would look like. I got a good hint when I was on a casual text thread with an ex-boss/colleague who is an engineer, well-steeped in AI, and quite successful at it. He presented a list of technical skills he thought were important and asked me which I could do:
+
+- Can install and run Linux
+- Can operate in Linux shell…
+- Can write Python and Bash… coding assistants fine
+- Can stand up virtual environments (venv, Conda)
+- Can configure Docker containers and maybe even deploy
+- Can configure SSH to some cloud host, maybe even SSH tunnel
+- Can clone, create a GitHub repo, commit, branch, etc.
+- Can find an OpenAI or other LLM API key and paste it where it needs to go
+
+You may or may not know what all of that means, and I was only 80% on recognition and 20% on "can do!" So, that list is actually surprising and interesting if you consider that we are talking about the newest and most cutting-edge sector, because most of this is pretty old school. It's not about fancy modern serverless cloud magic—"it's computers":
+
+- Out of that list, Linux, Bash, shell, and SSH are all about being able to do stuff at the operating system level of the computer.
+- Only 1 item is about coding, and note "coding assistants" are on the table. Python is one of the more intuitive languages, and Bash is coding, but as mentioned, "it's computers."
+- GitHub repos, virtual environments, and containers (Docker) are all tools that enable any developer to adopt/improve/create open-source software that can be deployed as an application that can run anywhere (kind of like an LLM).
+
+This last point has big implications, so let's start with it. The "GitHub + venv + Docker" architecture became dominant in the AI/ML space partially because the Python-based open-source ecosystem is fantastically deep and wide, and because of that, notoriously prone to conflicting dependencies across components that need to work together. Try to figure out on your own which version of Python works with which version of NumPy and you'll see what I mean. Add to that the machine-level (computer) driver dependencies to use GPU resources (CUDA + NVIDIA + cuDNN), and you've got tears in your keyboard.
+
+The problem is solved by simply moving the environment around with the application. The GitHub code repository is a folder with all the other folders and files where the code and documentation is written and lives, the "virtual environment" is a clean and separate workspace where you can avoid version conflicts of other code or projects, and the Docker container is your application ready to use as intended, anywhere. The whole OS + Libraries + Services travels around in this magical bundle that is, for all intents and purposes, a little computer minus the hardware.
+
+This architecture adds a huge benefit in managing service dependencies, such as API calls to LLMs, as well. Each component can be quickly and easily swapped out. My Python application doesn't know or care if it's talking to a Postgres database running in a Docker container on my desktop or a massive, managed Amazon RDS (SaaS) database in the cloud, and the same goes for an LLM (a Qwen model running on my desktop or GPT-5). Those services are defined in a single convenient file, so swapping one is a copy/paste/build/go sort of deal. When your application is running, all of the services are running in a network, and you have a whole stack using microservices, just like the big fancy clouds.
+
+## The End and Coming Soon
+
+So this all sounds great. The whole world is a nail, and I've found my hammer. Well, of course, the reality of practical application on real-world problems is a lot more complicated, and that, my dear readers, is what all future posts are for. I hope this was useful. By the way, the Ox Frame is fully open source, so feel free to use it, although I wouldn't recommend it.

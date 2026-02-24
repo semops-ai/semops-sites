@@ -1,6 +1,6 @@
-# Stack Overview
+# Resumator Stack Overview
 
-A guide to understanding the technology stack for the semops-sites monorepo.
+A guide to understanding the technology stack for timjmitchell.com.
 
 ---
 
@@ -8,24 +8,24 @@ A guide to understanding the technology stack for the semops-sites monorepo.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        BROWSER                                   │
-│  Renders HTML/CSS/JS, handles user interactions                  │
+│ BROWSER │
+│ Renders HTML/CSS/JS, handles user interactions │
 └─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
+ │
+ ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                     VERCEL (Hosting)                             │
-│  • Serves the website globally via CDN                           │
-│  • Runs Next.js server-side code (serverless functions)          │
-│  • Auto-deploys when code is pushed to GitHub                    │
+│ VERCEL (Hosting) │
+│ • Serves the website globally via CDN │
+│ • Runs Next.js server-side code (serverless functions) │
+│ • Auto-deploys when code is pushed to GitHub │
 └─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
+ │
+ ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                   SUPABASE (Database)                            │
-│  • PostgreSQL database in the cloud                              │
-│  • REST API auto-generated from your tables                      │
-│  • Admin UI for data management (Supabase Studio)                │
+│ SUPABASE (Database) │
+│ • PostgreSQL database in the cloud │
+│ • REST API auto-generated from your tables │
+│ • Admin UI for data management (Supabase Studio) │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -90,26 +90,28 @@ There's no separate application server, no XML, no transformation engine. JavaSc
 **File-based routing** - The file system defines URL structure:
 ```
 src/app/
-├── page.tsx        → /
-├── blog/
-│   ├── page.tsx    → /blog
-│   └── [slug]/
-│       └── page.tsx → /blog/:slug (dynamic route)
+├── page.tsx → /
+├── career/
+│ └── page.tsx → /career
+└── blog/
+ ├── page.tsx → /blog
+ └── [slug]/
+ └── page.tsx → /blog/:slug (dynamic route)
 ```
 
 **Layouts** - Shared UI that wraps child pages:
 ```tsx
 // src/app/layout.tsx - wraps ALL pages
 export default function RootLayout({ children }) {
-  return (
-    <html>
-      <body>
-        <Nav />          {/* Appears on every page */}
-        {children}       {/* Page content inserted here */}
-        <Footer />       {/* Appears on every page */}
-      </body>
-    </html>
-  );
+ return (
+ <html>
+ <body>
+ <Nav /> {/* Appears on every page */}
+ {children} {/* Page content inserted here */}
+ <Footer /> {/* Appears on every page */}
+ </body>
+ </html>
+ );
 }
 ```
 
@@ -126,7 +128,7 @@ export default function RootLayout({ children }) {
 **Components** - Functions that return JSX (HTML-like syntax):
 ```tsx
 function Greeting({ name }) {
-  return <h1>Hello, {name}</h1>;
+ return <h1>Hello, {name}</h1>;
 }
 
 // Usage: <Greeting name="Tim" />
@@ -134,25 +136,25 @@ function Greeting({ name }) {
 
 **State** - Data that changes over time:
 ```tsx
-function Counter() {
-  const [count, setCount] = useState(0);
+function Counter {
+ const [count, setCount] = useState(0);
 
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Clicked {count} times
-    </button>
-  );
+ return (
+ <button onClick={ => setCount(count + 1)}>
+ Clicked {count} times
+ </button>
+ );
 }
 ```
 
 **Props** - Data passed from parent to child:
 ```tsx
 // Parent passes data down
-<Card item={item} isFirst={true} />
+<PositionCard position={position} isFirst={true} />
 
 // Child receives it
-function Card({ item, isFirst }) {
-  return <div>{item.title}</div>;
+function PositionCard({ position, isFirst }) {
+ return <div>{position.title}</div>;
 }
 ```
 
@@ -168,13 +170,13 @@ function Card({ item, isFirst }) {
 ```typescript
 // Without types - error discovered at runtime (in production!)
 function greet(user) {
-  return user.name.toUpperCase();  // crashes if user is null
+ return user.name.toUpperCase; // crashes if user is null
 }
 
 // With types - error caught during development
 function greet(user: User | null) {
-  return user.name.toUpperCase();
-  // TS Error: 'user' is possibly 'null'
+ return user.name.toUpperCase;
+ // TS Error: 'user' is possibly 'null'
 }
 ```
 
@@ -182,21 +184,21 @@ function greet(user: User | null) {
 
 **Interfaces** - Define the shape of objects:
 ```typescript
-interface Item {
-  id: string;
-  title: string;
-  start_date: string;
-  end_date: string | null;  // Union type: string OR null
+interface Position {
+ id: string;
+ title: string;
+ start_date: string;
+ end_date: string | null; // Union type: string OR null
 }
 ```
 
 **Generics** - Reusable type patterns:
 ```typescript
-// Array of items
-const items: Item[] = [];
+// Array of positions
+const positions: Position[] = [];
 
 // Supabase returns { data, error } with typed data
-const { data } = await supabase.from('items').select('*');
+const { data } = await supabase.from('positions').select('*');
 ```
 
 **Best practice:** Define types in dedicated files (`src/types/`) and import where needed. Avoid `any` type - it defeats the purpose of TypeScript.
@@ -211,11 +213,11 @@ const { data } = await supabase.from('items').select('*');
 ```css
 /* styles.css */
 .card {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  background: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+ padding: 1rem;
+ margin-bottom: 1rem;
+ border-radius: 0.5rem;
+ background: white;
+ box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 ```
 ```html
@@ -242,7 +244,7 @@ const { data } = await supabase.from('items').select('*');
 **Responsive design:** Prefix with breakpoint (`sm:`, `md:`, `lg:`, `xl:`):
 ```html
 <div class="text-base md:text-lg lg:text-xl">
-  <!-- Small: 16px, Medium: 18px, Large: 20px -->
+ <!-- Small: 16px, Medium: 18px, Large: 20px -->
 </div>
 ```
 
@@ -256,42 +258,42 @@ const { data } = await supabase.from('items').select('*');
 
 **How it works:**
 ```
-Your App  ──▶  Supabase API  ──▶  PostgreSQL Database
-             (auto-generated)
+Your App ──▶ Supabase API ──▶ PostgreSQL Database
+ (auto-generated)
 ```
 
 **Query patterns:**
 
 ```typescript
-const supabase = await createClient();
+const supabase = await createClient;
 
 // Simple select
 const { data } = await supabase
-  .from('items')
-  .select('*');
+ .from('positions')
+ .select('*');
 
 // With joins (foreign key relationships)
 const { data } = await supabase
-  .from('items')
-  .select(`
-    *,
-    category:categories(*),
-    details:item_details(*)
-  `);
+ .from('positions')
+ .select(`
+ *,
+ company:companies(*),
+ bullets:position_bullets(*)
+ `);
 
 // With filters
 const { data } = await supabase
-  .from('items')
-  .select('*')
-  .eq('is_active', true)
-  .order('created_at', { ascending: false });
+ .from('positions')
+ .select('*')
+ .eq('is_current', true)
+ .order('start_date', { ascending: false });
 ```
 
 **Row Level Security (RLS):**
-PostgreSQL feature that controls access at the row level. Example policies:
+PostgreSQL feature that controls access at the row level. Our policies:
 ```sql
 -- Anyone can read
-CREATE POLICY "Public read" ON items FOR SELECT USING (true);
+CREATE POLICY "Public read" ON positions FOR SELECT USING (true);
 
 -- No policy for INSERT/UPDATE/DELETE = denied
 ```
@@ -345,7 +347,7 @@ This is a paragraph with **bold** and *italic*.
 Regular markdown continues...
 
 <Callout type="warning">
-  This is a React component embedded in markdown
+ This is a React component embedded in markdown
 </Callout>
 ```
 
@@ -367,81 +369,74 @@ Content starts here...
 ## Project Structure
 
 ```
-semops-sites/
-├── apps/
-│   ├── timjmitchell/              # timjmitchell.com
-│   │   ├── src/
-│   │   │   ├── app/               # Next.js routes (pages)
-│   │   │   │   ├── layout.tsx     # Root layout
-│   │   │   │   ├── page.tsx       # Homepage (/)
-│   │   │   │   ├── globals.css    # Global styles
-│   │   │   │   └── blog/
-│   │   │   │       ├── page.tsx       # /blog
-│   │   │   │       └── [slug]/page.tsx # /blog/:slug
-│   │   │   │
-│   │   │   ├── components/        # React components
-│   │   │   │   ├── ui/            # Base UI components (ShadCN)
-│   │   │   │   └── *.tsx          # Feature components
-│   │   │   │
-│   │   │   ├── lib/               # Utility functions
-│   │   │   │   ├── utils.ts       # General helpers
-│   │   │   │   ├── mdx.ts         # Content loading
-│   │   │   │   └── supabase/      # Database clients
-│   │   │   │
-│   │   │   ├── content/blog/      # MDX blog posts
-│   │   │   │
-│   │   │   └── types/             # TypeScript definitions
-│   │   │
-│   │   └── supabase/
-│   │       ├── config.toml        # Local dev config
-│   │       ├── migrations/        # Schema changes (version controlled)
-│   │       └── seed.sql           # Initial/test data
-│   │
-│   └── semops/                    # semops.ai
-│       ├── src/app/               # Next.js routes
-│       ├── content/               # MDX content (blog, pages, whitepapers)
-│       └── public/                # Static assets
+resumator/
+├── src/
+│ ├── app/ # Next.js routes (pages)
+│ │ ├── layout.tsx # Root layout
+│ │ ├── page.tsx # Homepage (/)
+│ │ ├── globals.css # Global styles
+│ │ ├── career/page.tsx # /career
+│ │ └── blog/
+│ │ ├── page.tsx # /blog
+│ │ └── [slug]/page.tsx # /blog/:slug
+│ │
+│ ├── components/ # React components
+│ │ ├── ui/ # Base UI components (ShadCN)
+│ │ └── *.tsx # Feature components
+│ │
+│ ├── lib/ # Utility functions
+│ │ ├── utils.ts # General helpers
+│ │ ├── mdx.ts # Content loading
+│ │ └── supabase/ # Database clients
+│ │
+│ ├── content/blog/ # MDX blog posts
+│ │
+│ └── types/ # TypeScript definitions
 │
-├── packages/
-│   ├── fonts/                     # Centralized font infrastructure
-│   ├── pdf-templates/             # LaTeX templates for PDF export
-│   └── shared/                    # Shared components and utilities
+├── supabase/
+│ ├── config.toml # Local dev config
+│ ├── migrations/ # Schema changes (version controlled)
+│ └── seed.sql # Initial/test data
 │
-├── public/                        # Static assets (images)
-├── package.json                   # Dependencies
-├── next.config.ts                 # Next.js config
-└── tsconfig.json                  # TypeScript config
+├── public/ # Static assets (images)
+├── package.json # Dependencies
+├── next.config.ts # Next.js config
+├── tailwind.config.ts # Tailwind config
+└── tsconfig.json # TypeScript config
 ```
 
 ---
 
 ## Data Flow
 
-### Content Rendering Flow
+### Career Page Data Flow
 
 ```
-1. User visits /blog/[slug]
-           │
-           ▼
-2. Next.js runs page component on SERVER
-           │
-           ▼
-3. Component loads MDX content from filesystem
-           │
-           ▼
-4. gray-matter parses frontmatter
-           │
-           ▼
-5. MDXRemote renders content with custom components
-           │
-           ▼
-6. Server sends complete HTML to browser
-           │
-           ▼
-7. React "hydrates" - attaches event handlers
-           │
-           ▼
-8. Interactive components (MermaidDiagram, etc.) activate
+1. User visits /career
+ │
+ ▼
+2. Next.js runs CareerTimeline component on SERVER
+ │
+ ▼
+3. Component calls getPositions
+ │
+ ▼
+4. Supabase client makes request to database
+ │
+ ▼
+5. Database returns positions + companies + bullets
+ │
+ ▼
+6. Component renders HTML with data
+ │
+ ▼
+7. Server sends complete HTML to browser
+ │
+ ▼
+8. React "hydrates" - attaches event handlers
+ │
+ ▼
+9. PositionCard (client component) handles expand/collapse
 ```
 
 ---
@@ -468,13 +463,13 @@ semops-sites/
 ## Deployment Pipeline
 
 ```
-┌──────────────┐    ┌──────────────┐    ┌──────────────┐
-│   Develop    │    │    GitHub    │    │    Vercel    │
-│              │    │              │    │              │
-│ Edit code    │───▶│ Push commit  │───▶│ Detect push  │
-│ npm run dev  │    │ to main      │    │ Run build    │
-│ Test locally │    │              │    │ Deploy       │
-└──────────────┘    └──────────────┘    └──────────────┘
+┌──────────────┐ ┌──────────────┐ ┌──────────────┐
+│ Develop │ │ GitHub │ │ Vercel │
+│ │ │ │ │ │
+│ Edit code │───▶│ Push commit │───▶│ Detect push │
+│ npm run dev │ │ to main │ │ Run build │
+│ Test locally │ │ │ │ Deploy │
+└──────────────┘ └──────────────┘ └──────────────┘
 ```
 
 **Vercel build process:**
@@ -493,9 +488,9 @@ semops-sites/
 
 ```
 migrations/
-├── 001_initial_schema.sql    # Initial tables
-├── 002_add_skills.sql         # Add skills table
-└── 003_add_projects.sql       # Add projects table
+├── 001_career_timeline.sql # Initial tables
+├── 002_add_skills.sql # Add skills table
+└── 003_add_projects.sql # Add projects table
 ```
 
 **Commands:**
@@ -525,14 +520,14 @@ This project includes Plotly for interactive data visualization, designed to int
 import { InteractiveChart } from '@/components/charts';
 
 <InteractiveChart
-  data={myData}
-  xField="date"
-  yDimensions={[
-    { value: 'revenue', label: 'Revenue ($)' },
-    { value: 'users', label: 'Active Users' },
-  ]}
-  title="Growth Metrics"
-  chartType="line"
+ data={myData}
+ xField="date"
+ yDimensions={[
+ { value: 'revenue', label: 'Revenue ($)' },
+ { value: 'users', label: 'Active Users' },
+ ]}
+ title="Growth Metrics"
+ chartType="line"
 />
 ```
 
@@ -544,7 +539,7 @@ import chartSpec from '@/data/my-chart.json';
 <PlotlyChart data={chartSpec.data} layout={chartSpec.layout} />
 ```
 
-### Python to Web Workflow
+### Python → Web Workflow
 
 **1. Create visualization in Python:**
 ```python
@@ -555,12 +550,12 @@ import json
 fig = px.line(df, x='date', y='value', title='My Analysis')
 
 # Export to JSON
-fig_dict = fig.to_dict()
+fig_dict = fig.to_dict
 with open('my-chart.json', 'w') as f:
-    json.dump({
-        'data': fig_dict['data'],
-        'layout': fig_dict['layout']
-    }, f)
+ json.dump({
+ 'data': fig_dict['data'],
+ 'layout': fig_dict['layout']
+ }, f)
 ```
 
 **2. Place JSON in project:**
@@ -607,27 +602,27 @@ import { useState } from 'react';
 import { PlotlyChart } from '@/components/charts';
 
 export function MyCustomViz({ data }) {
-  const [metric, setMetric] = useState('revenue');
-  const [timeRange, setTimeRange] = useState('1Y');
+ const [metric, setMetric] = useState('revenue');
+ const [timeRange, setTimeRange] = useState('1Y');
 
-  const filteredData = filterByTimeRange(data, timeRange);
+ const filteredData = filterByTimeRange(data, timeRange);
 
-  return (
-    <div>
-      <div className="flex gap-4 mb-4">
-        <select value={metric} onChange={e => setMetric(e.target.value)}>
-          <option value="revenue">Revenue</option>
-          <option value="users">Users</option>
-        </select>
-        <select value={timeRange} onChange={e => setTimeRange(e.target.value)}>
-          <option value="1M">1 Month</option>
-          <option value="1Y">1 Year</option>
-          <option value="ALL">All Time</option>
-        </select>
-      </div>
-      <PlotlyChart data={buildPlotData(filteredData, metric)} />
-    </div>
-  );
+ return (
+ <div>
+ <div className="flex gap-4 mb-4">
+ <select value={metric} onChange={e => setMetric(e.target.value)}>
+ <option value="revenue">Revenue</option>
+ <option value="users">Users</option>
+ </select>
+ <select value={timeRange} onChange={e => setTimeRange(e.target.value)}>
+ <option value="1M">1 Month</option>
+ <option value="1Y">1 Year</option>
+ <option value="ALL">All Time</option>
+ </select>
+ </div>
+ <PlotlyChart data={buildPlotData(filteredData, metric)} />
+ </div>
+ );
 }
 ```
 
@@ -641,32 +636,32 @@ This site uses a layered security approach with Cloudflare at the edge and Verce
 
 ```
 User Request
-     │
-     ▼
+ │
+ ▼
 ┌─────────────────────────────────────┐
-│           CLOUDFLARE                 │
-│  • DDoS protection (automatic)       │
-│  • Bot management                    │
-│  • WAF rules                         │
-│  • Rate limiting                     │
-│  • SSL/TLS termination               │
+│ CLOUDFLARE │
+│ • DDoS protection (automatic) │
+│ • Bot management │
+│ • WAF rules │
+│ • Rate limiting │
+│ • SSL/TLS termination │
 └─────────────────────────────────────┘
-     │
-     ▼
+ │
+ ▼
 ┌─────────────────────────────────────┐
-│             VERCEL                   │
-│  • Edge middleware                   │
-│  • Serverless function limits        │
-│  • Environment variable protection   │
-│  • Preview deployment auth           │
+│ VERCEL │
+│ • Edge middleware │
+│ • Serverless function limits │
+│ • Environment variable protection │
+│ • Preview deployment auth │
 └─────────────────────────────────────┘
-     │
-     ▼
+ │
+ ▼
 ┌─────────────────────────────────────┐
-│            SUPABASE                  │
-│  • Row Level Security (RLS)          │
-│  • API key scoping                   │
-│  • Connection pooling                │
+│ SUPABASE │
+│ • Row Level Security (RLS) │
+│ • API key scoping │
+│ • Connection pooling │
 └─────────────────────────────────────┘
 ```
 
@@ -700,40 +695,40 @@ Action: Challenge (CAPTCHA)
 **Security Headers (next.config.ts):**
 ```typescript
 const securityHeaders = [
-  {
-    key: 'X-DNS-Prefetch-Control',
-    value: 'on'
-  },
-  {
-    key: 'Strict-Transport-Security',
-    value: 'max-age=63072000; includeSubDomains; preload'
-  },
-  {
-    key: 'X-Frame-Options',
-    value: 'SAMEORIGIN'
-  },
-  {
-    key: 'X-Content-Type-Options',
-    value: 'nosniff'
-  },
-  {
-    key: 'Referrer-Policy',
-    value: 'origin-when-cross-origin'
-  },
-  {
-    key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=()'
-  }
+ {
+ key: 'X-DNS-Prefetch-Control',
+ value: 'on'
+ },
+ {
+ key: 'Strict-Transport-Security',
+ value: 'max-age=63072000; includeSubDomains; preload'
+ },
+ {
+ key: 'X-Frame-Options',
+ value: 'SAMEORIGIN'
+ },
+ {
+ key: 'X-Content-Type-Options',
+ value: 'nosniff'
+ },
+ {
+ key: 'Referrer-Policy',
+ value: 'origin-when-cross-origin'
+ },
+ {
+ key: 'Permissions-Policy',
+ value: 'camera=, microphone=, geolocation='
+ }
 ];
 
 // In next.config.ts:
-async headers() {
-  return [
-    {
-      source: '/:path*',
-      headers: securityHeaders,
-    },
-  ];
+async headers {
+ return [
+ {
+ source: '/:path*',
+ headers: securityHeaders,
+ },
+ ];
 }
 ```
 
@@ -742,13 +737,13 @@ async headers() {
 **Row Level Security (RLS)** - Controls database access:
 ```sql
 -- Public tables: explicit read policy
-CREATE POLICY "Public read" ON items FOR SELECT USING (true);
+CREATE POLICY "Public read" ON positions FOR SELECT USING (true);
 
 -- No INSERT/UPDATE/DELETE policies = denied by default
 
 -- Authenticated-only example:
 CREATE POLICY "Auth read" ON private_data
-  FOR SELECT USING (auth.role() = 'authenticated');
+ FOR SELECT USING (auth.role = 'authenticated');
 ```
 
 **API Key Scoping:**
@@ -765,16 +760,16 @@ For sites with interactive content (charts, embeds), configure CSP carefully:
 
 ```typescript
 {
-  key: 'Content-Security-Policy',
-  value: `
-    default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.plot.ly;
-    style-src 'self' 'unsafe-inline';
-    img-src 'self' data: blob:;
-    font-src 'self';
-    connect-src 'self' *.supabase.co;
-    frame-ancestors 'none';
-  `.replace(/\s{2,}/g, ' ').trim()
+ key: 'Content-Security-Policy',
+ value: `
+ default-src 'self';
+ script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.plot.ly;
+ style-src 'self' 'unsafe-inline';
+ img-src 'self' data: blob:;
+ font-src 'self';
+ connect-src 'self' *.supabase.co;
+ frame-ancestors 'none';
+ `.replace(/\s{2,}/g, ' ').trim
 }
 ```
 
@@ -811,6 +806,10 @@ Note: Plotly requires `unsafe-eval` for chart rendering. This is a known tradeof
 
 ### Vercel (Hosting & Deployment)
 
+**Account:** timjmitchell
+**Project:** resumator
+**Production URL:** https://resumator.vercel.app (pending custom domain)
+
 **Deployment Model:**
 - Auto-deploy on push to `main` branch
 - Preview deployments for PRs
@@ -819,15 +818,35 @@ Note: Plotly requires `unsafe-eval` for chart rendering. This is a known tradeof
 
 **CLI Access:**
 ```bash
-vercel whoami        # Check auth status
-vercel ls            # List deployments
-vercel --prod        # Manual production deploy
+vercel whoami # Check auth status
+vercel ls resumator # List deployments
+vercel --prod # Manual production deploy
 ```
 
 **Environment Variables:** Set in Vercel Dashboard → Settings → Environment Variables
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY` (server-only)
+
+---
+
+### Lovable (AI Design Tool)
+
+**Integration Pattern:** Design → GitHub sync → Vercel deploy
+
+**Workflow:**
+1. Design pages in Lovable web UI (lovable.dev)
+2. Connect to GitHub via Settings → Integrations → GitHub
+3. Two-way sync: Lovable ↔ GitHub (changes sync both directions)
+4. Push triggers Vercel auto-deploy
+
+**Output Format:** React/TypeScript/Tailwind - compatible with existing stack
+
+**MCP Server (optional):** [lovable-mcp-server](https://github.com/hiromima/lovable-mcp-server) for Claude Desktop analysis of Lovable-generated projects
+
+**Key Docs:**
+- [GitHub Integration](https://docs.lovable.dev/integrations/github)
+- [Export Guide](https://vibefactory.ai/export-lovable-project)
 
 ---
 
@@ -838,7 +857,7 @@ vercel --prod        # Manual production deploy
 **Workflow:**
 1. Draft content in semops-publisher using AI agents
 2. Generate MDX with frontmatter
-3. Ingest into semops-sites via `npm run ingest`
+3. Push to `src/content/blog/` in resumator
 4. Vercel auto-deploys
 
 **MDX Format Required:**
@@ -852,6 +871,8 @@ description: "Brief summary for SEO and previews"
 Markdown content here...
 ```
 
+**Related Issue:** 
+
 ---
 
 ## Further Reading
@@ -863,3 +884,4 @@ Markdown content here...
 - **Supabase Documentation:** https://supabase.com/docs
 - **MDX:** https://mdxjs.com/docs/
 - **Vercel Documentation:** https://vercel.com/docs
+- **Lovable Documentation:** https://docs.lovable.dev

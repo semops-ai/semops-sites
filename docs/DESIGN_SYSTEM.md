@@ -1,6 +1,7 @@
 # Design System Reference
 
 > **Purpose:** Living reference for responsive design patterns, breakpoints, and component conventions.
+> **Related:** [ADR-0004: Design System Architecture](decisions/ADR-0004-design-system-architecture.md)
 
 ---
 
@@ -10,12 +11,12 @@ Using Tailwind's default breakpoints with mobile-first approach:
 
 | Breakpoint | Min-width | Usage |
 |------------|-----------|-------|
-| (default)  | 0px       | Mobile phones (base styles) |
-| `sm:`      | 640px     | Large phones, small tablets |
-| `md:`      | 768px     | Tablets, small laptops (primary breakpoint) |
-| `lg:`      | 1024px    | Laptops, desktops |
-| `xl:`      | 1280px    | Large desktops |
-| `2xl:`     | 1536px    | Extra large screens |
+| (default) | 0px | Mobile phones (base styles) |
+| `sm:` | 640px | Large phones, small tablets |
+| `md:` | 768px | Tablets, small laptops (primary breakpoint) |
+| `lg:` | 1024px | Laptops, desktops |
+| `xl:` | 1280px | Large desktops |
+| `2xl:` | 1536px | Extra large screens |
 
 **Primary breakpoint: `md:`** - Most responsive changes happen here.
 
@@ -120,12 +121,12 @@ className="container mx-auto px-4"
 ```tsx
 // PageLayout component pattern
 <div className={cn(
-  'container mx-auto px-4 py-12 md:py-16',
-  width === 'narrow' && 'max-w-2xl',
-  width === 'default' && 'max-w-4xl',
-  width === 'wide' && 'max-w-6xl',
+ 'container mx-auto px-4 py-12 md:py-16',
+ width === 'narrow' && 'max-w-2xl',
+ width === 'default' && 'max-w-4xl',
+ width === 'wide' && 'max-w-6xl',
 )}>
-  {children}
+ {children}
 </div>
 ```
 
@@ -160,8 +161,8 @@ Small pill/badge for categories:
 
 ```css
 .tag {
-  @apply inline-flex w-fit text-xs font-medium px-2 py-0.5
-         bg-accent text-accent-foreground rounded;
+ @apply inline-flex w-fit text-xs font-medium px-2 py-0.5
+ bg-accent text-accent-foreground rounded;
 }
 ```
 
@@ -171,7 +172,7 @@ Secondary text for dates, authors, metadata:
 
 ```css
 .meta {
-  @apply text-sm text-muted-foreground;
+ @apply text-sm text-muted-foreground;
 }
 ```
 
@@ -181,7 +182,7 @@ Horizontal separator:
 
 ```css
 .divider {
-  @apply h-px bg-border my-8;
+ @apply h-px bg-border my-8;
 }
 ```
 
@@ -191,7 +192,7 @@ Optimal reading width:
 
 ```css
 .prose-container {
-  @apply max-w-[680px] mx-auto;
+ @apply max-w-[680px] mx-auto;
 }
 ```
 
@@ -203,9 +204,9 @@ Optimal reading width:
 
 ```tsx
 <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md">
-  <div className="container mx-auto px-4 flex h-16 md:h-20 items-center justify-between">
-    {/* Nav content */}
-  </div>
+ <div className="container mx-auto px-4 flex h-16 md:h-20 items-center justify-between">
+ {/* Nav content */}
+ </div>
 </header>
 ```
 
@@ -213,13 +214,13 @@ Optimal reading width:
 
 ```tsx
 <footer className="border-t py-12">
-  <div className="container mx-auto px-4">
-    <div className="grid md:grid-cols-4 gap-10">
-      <div className="md:col-span-2">{/* Brand */}</div>
-      <div>{/* Links */}</div>
-      <div>{/* Contact */}</div>
-    </div>
-  </div>
+ <div className="container mx-auto px-4">
+ <div className="grid md:grid-cols-4 gap-10">
+ <div className="md:col-span-2">{/* Brand */}</div>
+ <div>{/* Links */}</div>
+ <div>{/* Contact */}</div>
+ </div>
+ </div>
 </footer>
 ```
 
@@ -227,7 +228,7 @@ Optimal reading width:
 
 ```tsx
 <div className="border rounded-lg p-4 md:p-6 hover:border-foreground/50 transition-colors">
-  {/* Card content */}
+ {/* Card content */}
 </div>
 ```
 
@@ -236,7 +237,7 @@ Optimal reading width:
 ```tsx
 // Flex on mobile (stack), grid on desktop
 <div className="flex flex-col md:grid md:grid-cols-2 gap-6">
-  {/* Items */}
+ {/* Items */}
 </div>
 ```
 
@@ -250,10 +251,10 @@ Optimal reading width:
 2. Open browser DevTools (Cmd+Shift+I / Ctrl+Shift+I)
 3. Toggle device toolbar (Cmd+Shift+M / Ctrl+Shift+M)
 4. Test at key breakpoints:
-   - **375px** - iPhone SE (mobile baseline)
-   - **768px** - iPad (tablet, `md:` breakpoint)
-   - **1024px** - Laptop (`lg:` breakpoint)
-   - **1440px** - Desktop
+ - **375px** - iPhone SE (mobile baseline)
+ - **768px** - iPad (tablet, `md:` breakpoint)
+ - **1024px** - Laptop (`lg:` breakpoint)
+ - **1440px** - Desktop
 
 ### What to Verify
 
@@ -269,14 +270,14 @@ Add to root layout for quick breakpoint visibility:
 
 ```tsx
 {process.env.NODE_ENV === 'development' && (
-  <div className="fixed bottom-4 right-4 bg-black text-white text-xs px-2 py-1 rounded z-50">
-    <span className="sm:hidden">XS</span>
-    <span className="hidden sm:inline md:hidden">SM</span>
-    <span className="hidden md:inline lg:hidden">MD</span>
-    <span className="hidden lg:inline xl:hidden">LG</span>
-    <span className="hidden xl:inline 2xl:hidden">XL</span>
-    <span className="hidden 2xl:inline">2XL</span>
-  </div>
+ <div className="fixed bottom-4 right-4 bg-black text-white text-xs px-2 py-1 rounded z-50">
+ <span className="sm:hidden">XS</span>
+ <span className="hidden sm:inline md:hidden">SM</span>
+ <span className="hidden md:inline lg:hidden">MD</span>
+ <span className="hidden lg:inline xl:hidden">LG</span>
+ <span className="hidden xl:inline 2xl:hidden">XL</span>
+ <span className="hidden 2xl:inline">2XL</span>
+ </div>
 )}
 ```
 
@@ -286,7 +287,7 @@ Add to root layout for quick breakpoint visibility:
 
 ### How to Research Layouts
 
-1. **Identify reference sites** - Find sites with similar purpose (portfolios, consulting sites)
+1. **Identify reference sites** - Find sites with similar purpose (personal portfolios, consulting sites)
 2. **Use DevTools** - Inspect how they handle responsive behavior
 3. **Document patterns** - Note what works and why, add to this file
 

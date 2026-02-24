@@ -9,8 +9,8 @@
 \usepackage{fontspec}
 \usepackage{unicode-math}
 
-% Set fonts - using explicit paths from semops-sites/packages/fonts for robustness
-\newcommand{\fontspath}{../fonts/ttf}
+% Set fonts - using explicit paths from sites-pr/packages/fonts for robustness
+\newcommand{\fontspath}{/home/tim/GitHub/sites-pr/packages/fonts/ttf}
 \setmainfont{Inter}[
   Path=\fontspath/,
   Extension=.ttf,
@@ -217,7 +217,7 @@
 % Images
 \usepackage{graphicx}
 % Path to template assets (logo, etc.)
-\graphicspath{{./assets/}}
+\graphicspath{{/home/tim/GitHub/sites-pr/packages/pdf-templates/assets/}}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
