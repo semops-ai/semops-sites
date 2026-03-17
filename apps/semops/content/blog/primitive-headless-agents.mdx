@@ -1,0 +1,121 @@
+---
+title: Primitive Headless Agents
+date: '2026-03-09'
+author: Tim Mitchell
+category: Technical
+tags:
+  - AI
+  - data-engineering
+  - agents
+  - technical
+excerpt: >-
+  When the underlying data is already there and the compute is deterministic
+  math, agents don't need the UI — go headless, go around the software.
+featured: true
+---
+
+Is that title click-bait? I'm thinking probably not - most people would be afraid to click on it, so welcome brave souls.
+
+I was trying to think examples of agents I've built that surface some key ideas that I think are important and definitely influenced the development of [Semantic Operations](https://semops.ai/framework). Here's a good one:
+
+## Vibe Data Engineering
+
+Is that a thing? I hope not. Anyway, I was working in a client's Databricks platform and there was a lot of activity to say the least. In Databricks, the compute engine (the thing that does all the data transformation, pipeline stuff) is Spark, and the team used PySpark as their tool to program all of the spark jobs. Like a lot of companies, they were getting into some agentic stuff and were adding a lot of new data to their data platform, and there was a traffic jam in the PySpark lane. I was actually working on a totally different problem, but the traffic jam was becoming everyone's problem.
+
+So, of course, we all thought - "let's make a PySpark agent". The approaches we found were doing things like scraping the Spark UI for job metrics or generating pre-loaded scripts based on canned assumptions about the underlying data, or complicated multi-agent workflows that seemed to be harder to execute than just doing the work. None of these approaches worked very well.
+
+Here's what PySpark does and why it's tricky: Spark distributes data across a cluster of machines - it's solving a physics problem. When you join tables or run a transformation, the physical proximity of the data being operated on matters - too much physical distance = time and money. Spark has to figure out how to split the compute work up and then where to move what data to do it.  Most failures aren't "bad code" — they're mathematical mismatches between the shape of your data and the resource balancing. A join key where one value has 10 million rows and the other 100 is a "skew problem"  — one machine does all the work while the others sit idle. Cleaning dirty data is compute intensive, so you want to share the love. Route all the nulls (blanks) to a single machine, and it crashes. A table stored as a million tiny files instead of a few large ones means Spark will spend way more time just opening them than reading them. Need to spread that misery around. But these are straight ahead math problems, not complex procedural/code problems.
+
+But, so, then I'm thinking that the data the agents need to make the calculation is *already there* in the meta-data. The correct decision for the balancing act is a math problem. So...
+
+## The Pre-Flight Checklist
+
+Common scenario: you write PySpark, submit the job, and find out 45 minutes later it crashed because of null skew or a partition mismatch. That's lost time — and sometimes real money. A cartesian product of two billion-row tables can spin for hours and rack up a serious cloud bill before it finally crashes.
+
+Instead, what if we have an agentic process: **Validate, Plan, Execute.** The agent reads metadata and builds a Go/No-Go report before anything runs, like a pre-flight checklist. You could even do a range of conservative to "i'm feeling lucky".
+
+Most systems' table layers have a snapshot that points to a manifest list, which points to manifest files. These contain statistical truth the agent can read in milliseconds without touching the actual data files. Here's what's available:
+
+<MermaidDiagram chart={`graph TD
+    A[Delta Table] --> B[Snapshot]
+    B --> C[Manifest List]
+    C --> D[Manifest Files]
+    D --> E[Column Stats<br/>min/max, nulls, counts]
+    D --> F[File Stats<br/>size, record count]
+    D --> G[Partition Specs<br/>keys, alignment]
+
+    E --> H{Agent Decision Tree}
+    F --> H
+    G --> H
+    H -->|Pass| I[GO — Execute Query]
+    H -->|Fail| J[STOP — Apply Fix First]`} />
+
+Here are the five checks the agent runs before it writes a single line of Spark:
+
+**1. Small File Check.** The agent queries `table.files` and checks the average file size. If it's under 10MB, Spark will spend more time *opening* files than reading them — the scan overhead problem. The agent's move: trigger `rewrite_data_files` to compact before proceeding.
+
+**2. Null-Sink Check.** The agent reads `null_value_counts` from the manifest entries. If the join key has more than 5% nulls, Spark will route all those nulls to a single worker — the "null-sink" that crashes executors. The agent's move: inject `WHERE join_key IS NOT NULL` before the join.
+
+**3. Skew Check.** The agent looks at the value distribution for the join key. If the max count for a single value is more than 100x the average, you've got a skew problem — one partition doing all the work while the rest sit idle. The agent's move: apply salting (injecting random noise into the join key to spread the load).
+
+**4. Partition Alignment.** The agent checks the partition specs for both tables. If Table A is partitioned by day and Table B is unpartitioned, the shuffle will be massive. The agent's move: if Table B is small (under 100MB), force a broadcast join (sending the entire small table to every executor, avoiding the shuffle entirely). If it's larger, suggest re-partitioning to match.
+
+**5. Size and Cost Estimation.** The agent calculates the estimated shuffle size from the metadata. If it exceeds a human-set threshold, the agent stops and asks.
+
+When the checks pass, the agent produces a Go/No-Go report:
+
+> **Pre-Flight Report**
+> - Target Table: Sales_Fact (1.2 TB total)
+> - Applied Filter: Year = 2024 → Reduces scan to 410 GB (metadata verified)
+> - Join Key: customer_id → Skew Check: Max 1.2k rows per ID (Low Risk)
+> - Estimated Shuffle: 380 GB
+> - **Decision: GO** (Within 500GB human constraint)
+
+Every one of these checks is deterministic. The agent isn't guessing — it's reading statistics that Databricks already computed[^6]. And Spark's own Adaptive Query Execution (AQE)[^7] does some of this at runtime, but the pre-flight approach catches problems *before* you've burned compute.
+
+## Let the Agent Be the Buzzkill
+
+"It's only a few million rows, it'll be fine." And usually it is. But in a distributed cluster, when it's not fine, the cost may also not be fine. An agent that reads the metadata histograms and flags risks *before* execution is a useful complement to human optimism and experience.
+
+The corrections themselves are all standard techniques any experienced data engineer knows:
+
+| Scenario | What the Agent Sees | What the Agent Does |
+| --- | --- | --- |
+| Massive Skew | max_value_count is 500x the mean | Salting: spreads load across partitions |
+| I/O Throttling | 100k+ files for a small date range | Pruning: adds partition filter to WHERE |
+| Memory Risk | record_count x avg_row_size > cluster RAM | Batching: processes one month at a time |
+
+Nothing novel here. It's the same playbook an experienced engineer uses. The agent just runs it every single time, systematically. That's the value — not cleverness, but consistency.
+
+But you can also add logic to allow the agent to provide a range of options, and that logic may be knowledge and experience of a good data engineer. Human judgement is more valuable than ever... just give it to the agent and go acquire new knowledge to pass on. Also, if you want to get even more knowledgeable and experienced, log metrics for every agentic pass for what was predicted and what happened and improve. Learn data sources statistically, not in your gut.
+
+## The Pattern I Keep Seeing
+
+That experience stuck with me because I kept seeing the same pattern in other places. A company with an engineering process with CAD drawings — headless engine through open source. Voice-interactive audio software - use OS scripting, not core engine with GUI.
+
+The pattern: when the underlying data is available and the "compute" function is deterministic math (or arithmetic in many cases), go headless - go around the software, GUI, or whatever is blocking you. In many cases, the logic required - even if it seems like "special sauce" is very un-special sauce, and you can either derive it easily, or there are open source options that just hand it to you. Best of all, when that logic is exposed, you may find better methods that you didn't know were available because those options were obfuscated by the software.
+
+Bilgin Ibryam has a useful taxonomy for this — he calls them "headless agents"[^1], agents that work through APIs and data rather than interfaces. Joseph Moon takes it further: the UI is a human artifact, and agents don't need it[^2].
+
+And here's the other thing worth noting: agents themselves are about to generate a *lot* of data. Every agent run produces logs, traces, decisions, lineage events. The volume of data engineering work is going to increase significantly. Data engineering done well — and done by agents — isn't a niche concern. It's becoming central, so don't forget to build agents for the things that are going to allow you to build more agents.
+
+## Why Structured Data Is a Sweet Spot
+
+What makes these domains special isn't just that agents *can* work there. It's that the results self-validate.
+
+Data engineering has a property that many agent domains don't: determinism. Schema constraints, type checks, referential integrity — the math either works or it doesn't. If a join produces the wrong cardinality, the numbers surface it. You don't need a human to review the output. The math checks itself.
+
+Daniel Beach writes about this as "deterministic agentic systems"[^3] — structured data domains are natural fits for agents precisely because you can validate results automatically. Ananth Packkildurai makes a similar point[^4]: data engineering is special because you can *check* inference. Schema validation, type checks, referential integrity — the domain has built-in verification.
+
+This is also where it connects to something I've been thinking about more broadly. When you make the structure explicit — when the data describes itself through its own metadata — you create a surface that both humans and agents can work with. The agent reads the same metadata a human would. It just never skips the check. That's the idea behind what I've been calling [Explicit Architecture](https://semops.ai/framework/explicit-architecture) and [Explicit Enterprise](https://github.com/semops-ai/semops-docs/blob/main/SEMANTIC_OPERATIONS_FRAMEWORK/EXPLICIT_ARCHITECTURE/explicit-enterprise.md) — all your data and process inspectable by both people and machines, with no hidden assumptions.
+
+---
+
+[^1]: Bilgin Ibryam, ["Taxonomy of AI Agents: Headless, Ambient, Durable"](https://generativeprogrammer.com/p/taxonomy-of-ai-agents-headless-ambient)
+[^2]: Joseph Moon, ["Why UI Is Pre-AI"](https://agenticdata.substack.com/p/why-ui-is-pre-ai-enterprise-moats)
+[^3]: Daniel Beach, ["Deterministic Agentic (Data) Systems"](https://dataengineeringcentral.substack.com/p/deterministic-agentic-data-systems)
+[^4]: Ananth Packkildurai, ["Data Engineering After AI"](https://www.dataengineeringweekly.com/p/data-engineering-after-ai)
+[^5]: Shirshanka Das / DataHub, ["The Data Engineer's Guide to Context Engineering"](https://datahub.com/blog/context-engineering/)
+[^6]: [Apache Iceberg Table Spec](https://iceberg.apache.org/spec/)
+[^7]: [Spark Performance Tuning — Adaptive Query Execution](https://spark.apache.org/docs/latest/sql-performance-tuning.html)
+[^8]: Pete Hunt / Dagster, ["AI-Driven Data Engineering"](https://dagster.io/blog/announcing-ai-driven-data-engineering)

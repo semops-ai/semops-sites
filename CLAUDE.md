@@ -8,16 +8,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```text
 semops-sites [DELIVERY]
- │
- ├── Owns: Public-facing products
- │ - Public websites (timjmitchell.com, future semops.ai)
- │ - Deployed applications and APIs
- │ - Agentic endpoints (chatbots, data visualizations)
- │ - Static content and MDX pages
- │
- └── Coordinates with:
- - semops-core [MODEL] - Schema, Brand table (via shared Supabase)
- - semops-publisher [CONTENT] - Blog content (MDX via Git)
+        │
+        ├── Owns: Public-facing products
+        │   - Public websites (semops-ai.com, future semops.ai)
+        │   - Deployed applications and APIs
+        │   - Agentic endpoints (chatbots, data visualizations)
+        │   - Static content and MDX pages
+        │
+        └── Coordinates with:
+            - semops-core [MODEL] - Schema, Brand table (via shared Supabase)
+            - semops-publisher [CONTENT] - Blog content (MDX via Git)
 ```
 
 ## Session Notes
@@ -33,26 +33,26 @@ Document work sessions tied to GitHub Issues in `docs/session-notes/`:
 
 ```bash
 # Development (from repo root)
-npm run dev # Start all apps via Turborepo
-npm run dev:timjmitchell # Start timjmitchell.com (port 3000)
-npm run dev:semops # Start semops.ai (port 3001)
-npm run build # Production build all apps
-npm run lint # ESLint check all apps
+npm run dev                    # Start all apps via Turborepo
+npm run dev:semops-ai       # Start semops-ai.com (port 3000)
+npm run dev:semops             # Start semops.ai (port 3001)
+npm run build                  # Production build all apps
+npm run lint                   # ESLint check all apps
 
 # Content Ingestion (from semops-publisher)
-npm run ingest -- pages <hub-slug> --app semops # Ingest page group
-npm run ingest -- blog <slug> --app semops # Ingest blog post
-npm run ingest -- whitepaper <slug> --app semops # Ingest whitepaper
-npm run ingest -- <type> <slug> --dry-run # Preview without writing
+npm run ingest -- pages <hub-slug> --app semops      # Ingest page group
+npm run ingest -- blog <slug> --app semops           # Ingest blog post
+npm run ingest -- whitepaper <slug> --app semops     # Ingest whitepaper
+npm run ingest -- <type> <slug> --dry-run            # Preview without writing
 
 # Local Supabase
-npx supabase start # Start local Supabase (Studio: http://127.0.0.1:54323)
-npx supabase stop # Stop local Supabase
-npx supabase db reset # Reset DB + run migrations + seed
+npx supabase start       # Start local Supabase (Studio: http://127.0.0.1:54323)
+npx supabase stop        # Stop local Supabase
+npx supabase db reset    # Reset DB + run migrations + seed
 
 # Database
-npx supabase migration new <name> # Create new migration
-npx supabase db push # Push to production (when configured)
+npx supabase migration new <name>  # Create new migration
+npx supabase db push               # Push to production (when configured)
 ```
 
 ## Tech Stack
@@ -71,23 +71,23 @@ npx supabase db push # Push to production (when configured)
 ```text
 semops-sites/
 ├── apps/
-│ ├── timjmitchell/ # timjmitchell.com (personal site)
-│ │ └── ... # Minimal Next.js app
-│ └── semops/ # semops.ai (product/consulting)
-│ ├── src/
-│ │ ├── app/ # Next.js App Router pages
-│ │ ├── components/ # React components
-│ │ └── lib/ # Utilities
-│ ├── content/blog/ # MDX blog posts
-│ └── public/ # Static assets
+│   ├── semops-ai/           # semops-ai.com (personal site)
+│   │   └── ...                 # Minimal Next.js app
+│   └── semops/                 # semops.ai (product/consulting)
+│       ├── src/
+│       │   ├── app/            # Next.js App Router pages
+│       │   ├── components/     # React components
+│       │   └── lib/            # Utilities
+│       ├── content/blog/       # MDX blog posts
+│       └── public/             # Static assets
 ├── packages/
-│ └── shared/ # Shared components, utils (future)
+│   └── shared/                 # Shared components, utils (future)
 ├── supabase/
-│ ├── migrations/ # Schema changes (version controlled)
-│ └── seed.sql # Demo/test data
-├── docs/ # Shared documentation
-├── turbo.json # Turborepo config
-└── package.json # Workspace root
+│   ├── migrations/             # Schema changes (version controlled)
+│   └── seed.sql                # Demo/test data
+├── docs/                       # Shared documentation
+├── turbo.json                  # Turborepo config
+└── package.json                # Workspace root
 ```
 
 ## Key Patterns
@@ -103,9 +103,9 @@ semops-sites/
 // Server component
 const supabase = await createClient;
 const { data } = await supabase
- .from('positions')
- .select('*, company:companies(*), bullets:position_bullets(*)')
- .order('start_date', { ascending: false });
+  .from('positions')
+  .select('*, company:companies(*), bullets:position_bullets(*)')
+  .order('start_date', { ascending: false });
 ```
 
 ### MDX Blog Posts

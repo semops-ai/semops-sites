@@ -1,6 +1,6 @@
 ---
 job_ids: ["job-lycos-sr-pm", "job-terralycos-gpm"]
-title: "Lycos Music: Building the #1 Music Destination"
+title: "Lycos Music: Building the  Music Destination"
 type: "case-study"
 date: "2026-01-18"
 company: "Lycos / TerraLycos"
@@ -9,7 +9,7 @@ duration: "1999-2004"
 tags: ["digital-music", "streaming", "international", "portal-era"]
 ---
 
-# Lycos Music: Building the #1 Music Destination
+# Lycos Music: Building the  Music Destination
 
 ## Overview
 
@@ -27,11 +27,11 @@ tags: ["digital-music", "streaming", "international", "portal-era"]
 
 ### Lycos Music Launch
 
-{/* Founding team member, #1 music destination at launch */}
+{/* Founding team member,  music destination at launch */}
 
 ### Lycos Radio
 
-{/* Streaming music product, #3 online radio destination */}
+{/* Streaming music product,  online radio destination */}
 
 ### Sonique Media Player
 
@@ -48,8 +48,8 @@ tags: ["digital-music", "streaming", "international", "portal-era"]
 ## Results & Impact
 
 {/*
-- #1 music destination on the web (at launch)
-- #3 online radio destination (Lycos Radio)
+-  music destination on the web (at launch)
+-  online radio destination (Lycos Radio)
 - 5 countries coordinated
 */}
 

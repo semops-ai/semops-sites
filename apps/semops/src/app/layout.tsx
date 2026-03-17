@@ -6,77 +6,77 @@ import { Nav } from '@/components/nav';
 import { Footer } from '@/components/footer';
 
 const dmSans = DM_Sans({
- subsets: ['latin'],
- variable: '--font-sans',
- display: 'swap',
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
 });
 
 const jetbrainsMono = JetBrains_Mono({
- subsets: ['latin'],
- variable: '--font-mono',
- display: 'swap',
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
 });
 
 const monomials = localFont({
- src: '../fonts/Monomials.woff2',
- variable: '--font-monomials',
- display: 'swap',
+  src: '../fonts/Monomials.woff2',
+  variable: '--font-monomials',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
- metadataBase: new URL('https://semops.ai'),
- title: {
- default: 'SemOps | Semantic Operations Framework',
- template: '%s | SemOps',
- },
- description:
- 'A framework for Strategic Data, Explicit Architecture, and Semantic Optimization. Building better AI products through principled system design.',
- keywords: [
- 'SemOps',
- 'Semantic Operations',
- 'AI Framework',
- 'Strategic Data',
- 'Explicit Architecture',
- 'Semantic Optimization',
- 'AI Product Development',
- ],
- authors: [{ name: 'Tim Mitchell' }],
- creator: 'SemOps',
- openGraph: {
- type: 'website',
- locale: 'en_US',
- url: 'https://semops.ai',
- siteName: 'SemOps',
- title: 'SemOps | Semantic Operations Framework',
- description:
- 'Strategic Data, Explicit Architecture, and Semantic Optimization.',
- },
- twitter: {
- card: 'summary_large_image',
- title: 'SemOps | Semantic Operations Framework',
- description:
- 'Strategic Data, Explicit Architecture, and Semantic Optimization.',
- },
- robots: {
- index: true,
- follow: true,
- },
+  metadataBase: new URL('https://semops.ai'),
+  title: {
+    default: 'SemOps | Semantic Operations Framework',
+    template: '%s | SemOps',
+  },
+  description:
+    'A framework for Strategic Data, Explicit Architecture, and Semantic Optimization. Building better AI products through principled system design.',
+  keywords: [
+    'SemOps',
+    'Semantic Operations',
+    'AI Framework',
+    'Strategic Data',
+    'Explicit Architecture',
+    'Semantic Optimization',
+    'AI Product Development',
+  ],
+  authors: [{ name: 'Tim Mitchell' }],
+  creator: 'SemOps',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://semops.ai',
+    siteName: 'SemOps',
+    title: 'SemOps | Semantic Operations Framework',
+    description:
+      'Strategic Data, Explicit Architecture, and Semantic Optimization.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SemOps | Semantic Operations Framework',
+    description:
+      'Strategic Data, Explicit Architecture, and Semantic Optimization.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
- children,
+  children,
 }: {
- children: React.ReactNode;
+  children: React.ReactNode;
 }) {
- return (
- <html lang="en" className={`${dmSans.variable} ${jetbrainsMono.variable} ${monomials.variable}`}>
- <body>
- <div className="min-h-screen flex flex-col">
- <Nav />
- <main className="flex-1 pt-16 md:pt-20">{children}</main>
- <Footer />
- </div>
- </body>
- </html>
- );
+  return (
+    <html lang="en" className={`${dmSans.variable} ${jetbrainsMono.variable} ${monomials.variable}`}>
+      <body>
+        <div className="min-h-screen flex flex-col">
+          <Nav />
+          <main className="flex-1 pt-16 md:pt-20">{children}</main>
+          <Footer />
+        </div>
+      </body>
+    </html>
+  );
 }

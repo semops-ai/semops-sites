@@ -1,8 +1,8 @@
 ---
 title: Semantic Optimization
 description: >-
- Measuring and growing shared meaning through patterns and coherence — two
- equal forces in a feedback loop that makes AI acceleration sustainable.
+  Measuring and growing shared meaning through patterns and coherence — two
+  equal forces in a feedback loop that makes AI acceleration sustainable.
 ---
 
 # Semantic Optimization
@@ -31,34 +31,37 @@ Starting from zero — you have a capability you need, and you are looking for a
 
 **Identify the domain.** The domain you need may not depend on industry or discipline specifics. The cleaning service example above is really a logistics problem — dispatch and routing, not cleaning. Be equally wary of discipline-specific solutions that bundle assumptions into core functions. "Customer support" is customer relationships, and you want a solid, robust domain model where "customer" is the driving principle, not one vendor's interpretation of what support means through the lens of some assumed industry requirements. If there are nuances specific to your business, you will adapt them intentionally — not inadvertently acquire someone else's interpretation as cruft. <a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/GLOBAL_ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Your Explicit Architecture</a> will tell you what domain you are actually solving for.
 
-**Prescribe principles, not implementation.** The right source for a domain pattern is a set of principles, rules, and procedures — aligned with open standards, industry standards, or compliance requirements if possible. The pattern describes what the domain says is correct, the Explicit Architecture encodes the rules, and implementation follows from that. Lean toward neutral, well-documented standards (<a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/domain-patterns/knowledge-organization-systems.md" target="_blank" rel="noopener noreferrer">W3C</a>, <a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/domain-patterns/skos-pattern.md" target="_blank" rel="noopener noreferrer">SKOS</a>, GAAP), not a vendor's data model or a platform's field definitions. Open standards carry no cruft and are already well-represented in AI training data. There is a side benefit worth calling out: enterprise solutions and cloud platform stacks have layered so much abstraction over business operations that many organizations have lost sight of how their own business actually works. Everyone hopes someone else understands it. Adopting domain patterns reverses that, but without the cognitive load of integration details, because that's left to architecture and agents. I think many leaders, even non-technical ones, will be pleasantly surprised at how much clarity and understanding accelerate progress.
+**Prescribe principles, not implementation.** The right source for a domain pattern is a set of principles, rules, and procedures — aligned with open standards, industry standards, or compliance requirements if possible.  The pattern describes what the domain says is correct, the Explicit Architecture encodes the rules, and implementation follows from that. Lean toward neutral, well-documented standards (<a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/domain-patterns/knowledge-organization-systems.md" target="_blank" rel="noopener noreferrer">W3C</a>, <a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/domain-patterns/skos-pattern.md" target="_blank" rel="noopener noreferrer">SKOS</a>, GAAP), not a vendor's data model or a platform's field definitions. Open standards carry no cruft and are already well-represented in AI training data.  There is a side benefit worth calling out: enterprise solutions and cloud platform stacks have layered so much abstraction over business operations that many organizations have lost sight of how their own business actually works. Everyone hopes someone else understands it. Adopting domain patterns reverses that, but without the cognitive load of integration details, because that's left to architecture and agents. I think many leaders, even non-technical ones, will be pleasantly surprised at how much clarity and understanding accelerate progress.
 
-**Scope as large as it still works.** The rule of thumb: as big as you can, and it still works — meaning it can be encoded into an object that fits the architecture, matches the desired capabilities, and can be validated. Going too small is fine, though, because coherence audits will identify pattern overlaps, and consolidating will simply the architecture through a simple audit adjustment.
+**Scope as large as it still works.**  The rule of thumb: as big as you can, and it still works — meaning it can be encoded into an object that fits the architecture, matches the desired capabilities, and can be validated. Going too small is fine, though, because coherence audits will identify pattern overlaps, and consolidating will simply the architecture through a simple audit adjustment.
 
-Bigger pattern scopes are good because you will probably go faster, but there is a better reason: Broader patterns preserve meaning and goals in a way that smaller units cannot, because patterns are complete end-states... they are a goal that contains complete path to finished. I'm not anti-Agile/Scrum, but when I recognized the connection between Patterns and Agile, I found extra motivation. Ok, so maybe I'm anti-Agile, but only because I want something better. When goals are decomposed into stories or features, meaning fragments — the end state and goal get abstracted away from all of the work. Software development and Agile aren't the only domains where this happens, and Patterns don't mean that you can do the work all at once, but it does mean that the plan is much clearer, and other the full process of Semantic Optimization makes execution much clearer too. Need a digital publishing system? Why not just adopt the entire standard [Digital Asset Management (DAM)](../../../../semops-dx-orchestrator/docs/domain-patterns/dam-foundations.md) architecture as the Pattern - just bolt it on to your existing DDD architecture, and get the whole thing even if you aren't using most of it yet. I did. Take that, Agile.
+Bigger pattern scopes are good because you will probably go faster, but there is a better reason: Broader patterns preserve meaning and goals in a way that smaller units cannot, because patterns are complete end-states... they are a goal that contains complete path to finished. I'm not anti-Agile/Scrum, but when I recognized the connection between Patterns and Agile, I found extra motivation. Ok, so maybe I'm anti-Agile, but only because I want something better. When goals are decomposed into stories or features, meaning fragments — the end state and goal get abstracted away from all of the work. Software development and Agile aren't the only domains where this happens, and Patterns don't mean that you can do the work all at once, but it does mean that the plan is much clearer, and other the full process of Semantic Optimization makes execution much clearer too. Need a digital publishing system? Why not just adopt the entire standard [Digital Asset Management (DAM)](../../../../dx-hub-pr/docs/domain-patterns/dam-foundations.md) architecture as the Pattern - just bolt it on to your existing DDD architecture, and get the whole thing even if you aren't using most of it yet. I did. Take that, Agile.
 
 For the full practical guide on finding, sizing, adopting, and evolving patterns, see <a href="https://github.com/semops-ai/semops-docs/blob/main/SEMANTIC_OPERATIONS_FRAMEWORK/SEMANTIC_OPTIMIZATION/working-with-patterns.md" target="_blank" rel="noopener noreferrer">Working with Patterns</a>.
 
 ### From Pattern to Product
 
-A pattern is a desired end-state — the complete model of what something should look like. Capabilities come from business needs, not from decomposing the pattern. The [Explicit Architecture](/framework/explicit-architecture) encodes the pattern into the system — capabilities, repositories, infrastructure — all the way down. In SemOps, this is illustrated by the <a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/GLOBAL_ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Global Architecture</a> and <a href="https://github.com/semops-ai/semops-core/blob/main/docs/STRATEGIC_DDD.md" target="_blank" rel="noopener noreferrer">Strategic DDD</a> docs.
+A pattern is a desired end-state — the complete model of what something should look like. Capabilities come from business needs, not from decomposing the pattern. The [Explicit Architecture](/framework/explicit-architecture) encodes the pattern into the system — capabilities, repositories, infrastructure — all the way down. In SemOps, this is illustrated by the <a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/GLOBAL_ARCHITECTURE.md" target="_blank" rel="noopener noreferrer">Global Architecture</a> and <a href="https://github.com/semops-ai/semops-hub-pr/blob/main/docs/STRATEGIC_DDD.md" target="_blank" rel="noopener noreferrer">Strategic DDD</a> docs.
 
 An example: you have been doing accounting manually in QuickBooks — no integration. A business need arises: you want to track LLM API costs more frequently and use that data for analytics — scoping agent features, researching open-source model replacements for expensive ones. Your pattern search reveals that the data plumbing for cost tracking is not a big deal, but it makes more sense to adopt an entire <a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/domain-patterns/accounting-system.md" target="_blank" rel="noopener noreferrer">Accounting System</a> pattern and go full agentic integration, because it is actually simpler and safer to implement "the right way to do accounting" than to hack a short-term solution that might expose sensitive data. You do not have to light up every accounting feature the pattern includes — but it is in the architecture and ready when you want to. Now you have a stable core to build your cost modeler on, governance is built in to a natural boundary around financial data, and the pattern's canonical form means AI can do most of the implementation work with high fidelity.
 
-In practice, the chain is **Pattern → Capability → Repository**. Patterns define the end-state. Capabilities describe understandable functions that fulfill business needs. Repositories are agent and function boundaries — the scope of context an AI agent or team needs to do useful work. Here is a sample from the SemOps <a href="https://github.com/semops-ai/semops-core/blob/main/docs/STRATEGIC_DDD.md" target="_blank" rel="noopener noreferrer">Strategic DDD</a>:
+In practice, the chain is **Pattern → Capability → Repository**. Patterns define the end-state. Capabilities describe understandable functions that fulfill business needs. Repositories are agent and function boundaries — the scope of context an AI agent or team needs to do useful work. Here is a sample from the SemOps <a href="https://github.com/semops-ai/semops-hub-pr/blob/main/docs/STRATEGIC_DDD.md" target="_blank" rel="noopener noreferrer">Strategic DDD</a>:
 
 | Capability | Implements Patterns | Repository |
 | --------- | ------------------- | -------------- |
-| Domain Data Model | `ddd`, `skos`, `prov-o`, `explicit-architecture` | semops-core |
-| Internal Knowledge Access | `agentic-rag` | semops-core |
-| Coherence Scoring | `semantic-coherence` | semops-data, semops-core |
+| Domain Data Model | `ddd`, `skos`, `prov-o`, `explicit-architecture` | semops-hub-pr |
+| Internal Knowledge Access | `agentic-rag` | semops-hub-pr |
+| Coherence Scoring | `semantic-coherence` | data-pr, semops-hub-pr |
 
 Every capability traces to at least one pattern; a capability with no pattern link either reveals a missing pattern or an unjustified capability. And it goes all the way down — the <a href="https://github.com/semops-ai/semops-dx-orchestrator/blob/main/docs/GLOBAL_INFRASTRUCTURE.md" target="_blank" rel="noopener noreferrer">Global Infrastructure</a> maps shared libraries to the scripts and capabilities they power:
 
 | Library | Repository | Script(s) | Capability |
 | ------- | ---------- | --------- | ---------- |
-| **pydantic** | semops-core | `source_config.py`, `api/query.py` | Source Configuration, Query API | | | semops-publisher | `config.py` | Publishing Configuration | | | semops-backoffice | `voice/shared/schemas.py` | Voice Control Models |
-| **click** | semops-publisher | `publish.py`, `export_pdf.py` | Publishing CLI, PDF Export | | | semops-data | `cli.py` | Data Toolkit CLI |
+| **pydantic** | semops-hub-pr | `source_config.py`, `api/query.py` | Source Configuration, Query API |
+| | publisher-pr | `config.py` | Publishing Configuration |
+| | backoffice-pr | `voice/shared/schemas.py` | Voice Control Models |
+| **click** | publisher-pr | `publish.py`, `export_pdf.py` | Publishing CLI, PDF Export |
+| | data-pr | `cli.py` | Data Toolkit CLI |
 
 This is how the architecture stays inspectable all the way from intent to infrastructure — and how agents know exactly what context they need.
 
@@ -88,9 +91,9 @@ Patterns provide stable knowledge growth. Coherence creates a stable knowledge s
 
 ```text
 Pattern ──prescribes──→ Implementation
- ↑ ↓
- └──── Coherence ←──measures──┘
- (directs)
+   ↑                          ↓
+   └──── Coherence ←──measures──┘
+         (directs)
 ```
 
 Patterns prescribe what the organization should look like. Coherence measures whether reality matches that intent. Critically, coherence also directs: the arrow back to patterns is not just "report status." When a coherence assessment identifies a gap, the response can be to adopt a new pattern, modify an existing one, revert a pattern that disrupted alignment, or evolve a pattern to match an implementation that drifted for good reason. Sometimes the implementation drifted because the team discovered something the pattern did not account for — coherence assessment reveals this, and the correct response may be to update the pattern rather than force the implementation back.

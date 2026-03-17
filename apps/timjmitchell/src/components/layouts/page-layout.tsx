@@ -6,18 +6,18 @@ import { cn } from '@/lib/utils';
 type PageWidth = 'narrow' | 'default' | 'wide' | 'full';
 
 const widthClasses: Record<PageWidth, string> = {
- narrow: 'max-w-2xl', // ~672px - blog posts, focused reading
- default: 'max-w-4xl', // ~896px - most pages
- wide: 'max-w-6xl', // ~1152px - dashboards, galleries
- full: 'max-w-none', // full container width
+  narrow: 'max-w-2xl', // ~672px - blog posts, focused reading
+  default: 'max-w-4xl', // ~896px - most pages
+  wide: 'max-w-6xl', // ~1152px - dashboards, galleries
+  full: 'max-w-none', // full container width
 };
 
 export interface PageLayoutProps {
- children: React.ReactNode;
- /** Page width constraint */
- width?: PageWidth;
- /** Additional classes */
- className?: string;
+  children: React.ReactNode;
+  /** Page width constraint */
+  width?: PageWidth;
+  /** Additional classes */
+  className?: string;
 }
 
 /**
@@ -25,37 +25,37 @@ export interface PageLayoutProps {
  *
  * @example
  * <PageLayout width="narrow">
- * <PageHeader title="Blog Post" />
- * <article>...</article>
+ *   <PageHeader title="Blog Post" />
+ *   <article>...</article>
  * </PageLayout>
  */
 export function PageLayout({
- children,
- width = 'default',
- className,
+  children,
+  width = 'default',
+  className,
 }: PageLayoutProps) {
- return (
- <div
- className={cn(
- 'container mx-auto px-4 py-12 md:py-16',
- widthClasses[width],
- className
- )}
- >
- {children}
- </div>
- );
+  return (
+    <div
+      className={cn(
+        'container mx-auto px-4 py-12 md:py-16',
+        widthClasses[width],
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
 }
 
 export interface PageHeaderProps {
- /** Page title (h1) */
- title: string;
- /** Optional subtitle/description */
- subtitle?: string;
- /** Additional content (badges, actions, etc.) */
- children?: React.ReactNode;
- /** Additional classes */
- className?: string;
+  /** Page title (h1) */
+  title: string;
+  /** Optional subtitle/description */
+  subtitle?: string;
+  /** Additional content (badges, actions, etc.) */
+  children?: React.ReactNode;
+  /** Additional classes */
+  className?: string;
 }
 
 /**
@@ -63,31 +63,31 @@ export interface PageHeaderProps {
  *
  * @example
  * <PageHeader
- * title="About"
- * subtitle="Product leader building at the intersection of AI and enterprise software."
+ *   title="About"
+ *   subtitle="Product leader building at the intersection of AI and enterprise software."
  * />
  */
 export function PageHeader({
- title,
- subtitle,
- children,
- className,
+  title,
+  subtitle,
+  children,
+  className,
 }: PageHeaderProps) {
- return (
- <header className={cn('mb-12', className)}>
- <h1 className="mb-4">{title}</h1>
- {subtitle && <p className="text-lg text-muted-foreground">{subtitle}</p>}
- {children}
- </header>
- );
+  return (
+    <header className={cn('mb-12', className)}>
+      <h1 className="mb-4">{title}</h1>
+      {subtitle && <p className="text-lg text-muted-foreground">{subtitle}</p>}
+      {children}
+    </header>
+  );
 }
 
 export interface SectionProps {
- children: React.ReactNode;
- /** Optional section title */
- title?: string;
- /** Additional classes */
- className?: string;
+  children: React.ReactNode;
+  /** Optional section title */
+  title?: string;
+  /** Additional classes */
+  className?: string;
 }
 
 /**
@@ -95,14 +95,14 @@ export interface SectionProps {
  *
  * @example
  * <Section title="Current Work">
- * <p>Building SemOps...</p>
+ *   <p>Building SemOps...</p>
  * </Section>
  */
 export function Section({ children, title, className }: SectionProps) {
- return (
- <section className={cn('py-8 md:py-12', className)}>
- {title && <h2 className="mb-6">{title}</h2>}
- {children}
- </section>
- );
+  return (
+    <section className={cn('py-8 md:py-12', className)}>
+      {title && <h2 className="mb-6">{title}</h2>}
+      {children}
+    </section>
+  );
 }

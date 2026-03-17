@@ -17,7 +17,7 @@ tags: ["adtech", "search", "advertising", "innovation", "early-internet"]
 
 ## The Challenge
 
-{/* Monetizing the #1 search engine, building ad operations */}
+{/* Monetizing the  search engine, building ad operations */}
 
 ## The Approach
 
@@ -45,7 +45,7 @@ tags: ["adtech", "search", "advertising", "innovation", "early-internet"]
 
 {/*
 - 100% YoY ad revenue growth
-- #1 search engine (HotBot during tenure)
+-  search engine (HotBot during tenure)
 */}
 
 ## Lessons Learned

@@ -1,14 +1,14 @@
 ---
 title: Strategic Data
 description: >-
- A playbook for making data a first-class strategic asset — understanding data
- systems clearly, applying structure deliberately, and preparing the foundation
- that AI actually requires.
+  A playbook for making data a first-class strategic asset — understanding data
+  systems clearly, applying structure deliberately, and preparing the foundation
+  that AI actually requires.
 ---
 
 # Strategic Data
 
-Every organization depends on data for decisions, and myriad solutions have evolved to manage data — streaming and telemetry, governance frameworks, analytics packages, and modern lakehouse platforms all provide the tools. Yet, many organizations struggle to get reliable, consistent answers from their data, and the gap can be technical, but it is often organizational, driven by persistent points of confusion. 
+Every organization depends on data for decisions, and myriad solutions have evolved to manage data  — streaming and telemetry, governance frameworks, analytics packages, and modern lakehouse platforms all provide the tools. Yet, many organizations struggle to get reliable, consistent answers from their data, and the gap can be technical, but it is often organizational, driven by persistent points of confusion. 
 
 <a href="https://github.com/semops-ai/semops-docs/blob/main/SEMANTIC_OPERATIONS_FRAMEWORK/STRATEGIC_DATA/README.md" target="_blank" rel="noopener noreferrer">Strategic Data</a> is the [Semantic Operations](/framework/what-is-semops) pillar that addresses this directly. Its methods and tools promote clear, neutral understanding of what data systems actually are, what they require, and why getting this right is a prerequisite for any organization hoping to benefit from AI. It represents the most deterministic part of the [Semantic Funnel](/framework/semantic-funnel) — the transformation from raw Data to structured Information — and provides a playbook for making data a first-class strategic asset.
 
@@ -30,7 +30,7 @@ I think the single most valuable thing an organization can do for its data strat
 
 The entire landscape of data systems can be characterized by a small set of neutral concepts. Once these are clear, any data system — regardless of vendor, platform, or industry — can be described, compared, and governed using the same vocabulary.
 
-**What kind of system is it?** Pick one of <a href="https://github.com/semops-ai/semops-docs/blob/main/SEMANTIC_OPERATIONS_FRAMEWORK/STRATEGIC_DATA/four-data-system-types.md" target="_blank" rel="noopener noreferrer">four system types</a> that capture "data systems":
+**What kind of system is it?** Pick one of <a href="https://github.com/semops-ai/semops-docs/blob/main/SEMANTIC_OPERATIONS_FRAMEWORK/STRATEGIC_DATA/data-system-classification.md" target="_blank" rel="noopener noreferrer">four system types</a> that capture "data systems":
 
 - **Application** — operational, transactional systems (OLTP)
 - **Analytics** — systems instrumented for analysis (OLAP)
@@ -71,7 +71,7 @@ from sklearn.cluster import KMeans
 
 # The dimensional model gave you clean customer-level features
 X = customer_features[['Recency', 'Frequency', 'Monetary']].values
-scaler = StandardScaler
+scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
 kmeans = KMeans(n_clusters=4, random_state=42)
@@ -82,16 +82,16 @@ And those same features, enriched with the segments the model produced, become s
 
 ```json
 {
- "instruction": "Generate a personalized marketing email for a customer",
- "input": {
- "customer_segment": "High-Value Lapsed",
- "recency_days": 45,
- "total_spend": 2500,
- "open_rate": 0.32,
- "preferred_tone": "friendly",
- "preferred_offer": "discount"
- },
- "output": "Subject: We Miss You! Here's 20% Off Your Next Order\n\nHi [Name],\n\nIt's been a while since your last purchase, and we wanted to reach out..."
+  "instruction": "Generate a personalized marketing email for a customer",
+  "input": {
+    "customer_segment": "High-Value Lapsed",
+    "recency_days": 45,
+    "total_spend": 2500,
+    "open_rate": 0.32,
+    "preferred_tone": "friendly",
+    "preferred_offer": "discount"
+  },
+  "output": "Subject: We Miss You! Here's 20% Off Your Next Order\n\nHi [Name],\n\nIt's been a while since your last purchase, and we wanted to reach out..."
 }
 ```
 ### Why This Matters More for AI
@@ -124,13 +124,13 @@ But governance only works when it has full coverage. Good governance in the anal
 When that commitment exists, the mechanisms are well-established. Two complementary practices provide the audit trail:
 
 <MermaidDiagram chart={`flowchart TB
- A["External World\n(sensors, partners, surveys)"] --> B["Internal Data Ecosystem\nIngest → Transform → Store → Consume"]
- A -.- P["Provenance metadata\n'where did this data come from?'"]
- B -.- L["Lineage metadata\n'what happened to the data internally?'"]
- style A fill:#f0f4f1,stroke:#3d6b52,color:#1a1a1a
- style B fill:#f0f4f1,stroke:#3d6b52,color:#1a1a1a
- style P fill:none,stroke:none,color:#3d6b52
- style L fill:none,stroke:none,color:#3d6b52
+    A["External World\n(sensors, partners, surveys)"] --> B["Internal Data Ecosystem\nIngest → Transform → Store → Consume"]
+    A -.- P["Provenance metadata\n'where did this data come from?'"]
+    B -.- L["Lineage metadata\n'what happened to the data internally?'"]
+    style A fill:#f0f4f1,stroke:#3d6b52,color:#1a1a1a
+    style B fill:#f0f4f1,stroke:#3d6b52,color:#1a1a1a
+    style P fill:none,stroke:none,color:#3d6b52
+    style L fill:none,stroke:none,color:#3d6b52
 `} />
 
 Together, provenance and lineage answer the two questions that govern trust. When both are in place, teams can assess impact before making changes, trace errors back to their source, and enforce semantic contracts between systems — versioned definitions of what data means at each boundary — like API contracts.
